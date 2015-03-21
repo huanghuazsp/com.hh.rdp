@@ -1,0 +1,57 @@
+<%@ jet package="com.hh.rdp.temp" imports="java.util.*
+ com.hh.rdp.util.Convert
+ com.hh.rdp.model.*
+ com.hh.rdp.util.*"   class="BeanJavaTemplate"  %>
+<%
+ 	JetModel jetModel =(JetModel) argument;
+ %>
+ package <%=jetModel.getPackName()%>;
+import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.persistence.Lob;
+import com.hh.hibernate.util.base.*;
+@SuppressWarnings("serial")
+@Entity
+@Table(name="<%=jetModel.getTableName()%>")
+public class <%=jetModel.getClassName()%>  extends <%=jetModel.getExtendClassName()%>{
+<% List<Column> columnList = jetModel.getColumnList(); %>
+<%	for (Column column : columnList) {
+			String name = column.getName();
+			String length = column.getLength();
+			String nameUpper =name.substring(0, 1).toUpperCase()
+			+name.substring(1);
+			String type = column.getType();
+%>
+	//<%=column.getText()%>
+	private <%="boolean".equals(type)?"int" : type%> <%=name%>;
+	<%
+		String columnStr = "";
+		if(column.isLob()){
+			columnStr="@Lob\n\t";
+		}
+		if("Date".equals(type)){
+			columnStr="@Temporal(TemporalType.TIMESTAMP)\n\t"
+			+"@Column( length = 7";
+		}else{
+			columnStr+="@Column(";
+			if(Check.isNoEmpty(length)){
+				columnStr+=" length = "+length;
+			}
+		}
+		columnStr+=")";
+	%>
+	<%=columnStr%>
+	public <%= type%> get<%=nameUpper%>() {
+		return <%=name%>;
+	}
+	public void set<%=nameUpper%>(<%=type%> <%=name%>) {
+		this.<%=name%> = <%=name%>;
+	}
+	
+<%}%>
+}

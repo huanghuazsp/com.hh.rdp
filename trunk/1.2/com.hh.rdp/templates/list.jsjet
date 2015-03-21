@@ -1,0 +1,34 @@
+<%@ jet package="com.hh.rdp.temp" imports="java.util.*
+ com.hh.rdp.util.Convert
+ com.hh.rdp.model.*
+ com.hh.rdp.util.*"   class="ListJsTemplate"  %>
+<%
+ 	JetModel jetModel =(JetModel) argument;
+ %>
+ Ext.define('<%=jetModel.getBasePackName()%>.<%=jetModel.getClassName()%>.<%=jetModel.getClassName()%>List', {
+extend : 'com.hh.global.SimpleGridPanelWindow',
+action : '<%=jetModel.getModelName()%>-<%=jetModel.getClassName()%>-',
+editPage : '<%=jetModel.getBasePackName()%>.<%=jetModel.getClassName()%>.<%=jetModel.getClassName()%>Edit',
+constructor : function(config) {
+	this.config = config || {};
+	this.superclass.constructor.call(this, this.config);
+},
+getGridColumns : function() {
+return [
+
+<% List<Column> columnList = jetModel.getColumnList(); %>
+<%	for (Column column : columnList) {
+%>
+{ text : '<%= column.getText()%>', dataIndex : '<%= column.getName()%>',flex : 1},
+<%}%>
+
+{dataIndex : 'id', flex : 1,hidden : true}
+];
+},
+getStoreFields : function() { return ["id"
+<%	for (Column column : columnList) {
+%>
+,"<%= column.getName()%>"
+<%}%>
+];}
+});
