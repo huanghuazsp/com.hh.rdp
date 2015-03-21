@@ -1,0 +1,17 @@
+<%@ jet package="com.hh.rdp.temp" imports="java.util.*
+ com.hh.rdp.util.Convert
+ com.hh.rdp.model.*
+ com.hh.rdp.util.*"   class="ServiceJavaTemplate"  %>
+<%
+ 	JetModel jetModel =(JetModel) argument;
+ %>
+ package <%=jetModel.getServicePackName()%>;
+import com.hh.system.service.impl.BaseService;
+import org.springframework.stereotype.Service;
+
+import <%=jetModel.getPackName()%>.<%=jetModel.getClassName()%>;
+
+@Service
+public class <%=jetModel.getClassName()%>Service extends BaseService<<%=jetModel.getClassName()%>> {
+}
+ 
