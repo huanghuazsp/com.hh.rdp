@@ -25,8 +25,13 @@ public class EditJspTemplate
   protected final String TEXT_6 = "-";
   protected final String TEXT_7 = "-save', {" + NL + "\t\t\t\tdata : formData," + NL + "\t\t\t\tcallback : function(result) {" + NL + "\t\t\t\t\tif (result.success) {" + NL + "\t\t\t\t\t\tparams.callback(formData);" + NL + "\t\t\t\t\t\tDialog.close();" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t});" + NL + "\t\t});" + NL + "\t}" + NL + "" + NL + "\tfunction findData() {" + NL + "\t\tif (objectid) {" + NL + "\t\t\tRequest.request('";
   protected final String TEXT_8 = "-";
-  protected final String TEXT_9 = "-findObjectById', {" + NL + "\t\t\t\tdata : {" + NL + "\t\t\t\t\tid : objectid" + NL + "\t\t\t\t}," + NL + "\t\t\t\tcallback : function(result) {" + NL + "\t\t\t\t\t$('#form').setValue(result);" + NL + "\t\t\t\t}" + NL + "\t\t\t});" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\tfunction init() {" + NL + "\t\tfindData();" + NL + "\t}" + NL + "</script>" + NL + "</head>" + NL + "<body>" + NL + "\t<div xtype=\"hh_content\">" + NL + "\t\t<form id=\"form\" xtype=\"form\">" + NL + "\t\t\t<span xtype=\"text\" config=\" hidden:true,name : 'id'\"></span>" + NL + "\t\t\t<table xtype=\"form\">" + NL + "\t\t\t\t<tr>" + NL + "\t\t\t\t\t<td xtype=\"label\">test：</td>" + NL + "\t\t\t\t\t<td><span xtype=\"text\" config=\" name : 'test' \"></span></td>" + NL + "\t\t\t\t</tr>" + NL + "\t\t\t</table>" + NL + "\t\t</form>" + NL + "\t</div>" + NL + "\t<div xtype=\"toolbar\">" + NL + "\t\t<span xtype=\"button\" config=\"text:'保存' , onClick : save \"></span> <span" + NL + "\t\t\txtype=\"button\" config=\"text:'取消' , onClick : Dialog.close \"></span>" + NL + "\t</div>" + NL + "</body>" + NL + "</html>" + NL + "" + NL + " ";
-  protected final String TEXT_10 = NL + " ";
+  protected final String TEXT_9 = "-findObjectById', {" + NL + "\t\t\t\tdata : {" + NL + "\t\t\t\t\tid : objectid" + NL + "\t\t\t\t}," + NL + "\t\t\t\tcallback : function(result) {" + NL + "\t\t\t\t\t$('#form').setValue(result);" + NL + "\t\t\t\t}" + NL + "\t\t\t});" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\tfunction init() {" + NL + "\t\tfindData();" + NL + "\t}" + NL + "</script>" + NL + "</head>" + NL + "<body>" + NL + "\t<div xtype=\"hh_content\">" + NL + "\t\t<form id=\"form\" xtype=\"form\">" + NL + "\t\t\t<span xtype=\"text\" config=\" hidden:true,name : 'id'\"></span>" + NL + "\t\t\t<table xtype=\"form\">" + NL + "\t\t\t\t";
+  protected final String TEXT_10 = NL + "\t\t\t\t";
+  protected final String TEXT_11 = NL + "\t\t\t\t\t<tr>" + NL + "\t\t\t\t\t\t<td xtype=\"label\">";
+  protected final String TEXT_12 = "：</td>" + NL + "\t\t\t\t\t\t<td><span xtype=\"text\" config=\" name : '";
+  protected final String TEXT_13 = "' \"></span></td>" + NL + "\t\t\t\t\t</tr>" + NL + "\t\t\t\t";
+  protected final String TEXT_14 = NL + "\t\t\t</table>" + NL + "\t\t</form>" + NL + "\t</div>" + NL + "\t<div xtype=\"toolbar\">" + NL + "\t\t<span xtype=\"button\" config=\"text:'保存' , onClick : save \"></span> <span" + NL + "\t\t\txtype=\"button\" config=\"text:'取消' , onClick : Dialog.close \"></span>" + NL + "\t</div>" + NL + "</body>" + NL + "</html>" + NL + "" + NL + " ";
+  protected final String TEXT_15 = NL + " ";
 
   public String generate(Object argument)
   {
@@ -63,7 +68,29 @@ public class EditJspTemplate
     stringBuffer.append(TEXT_8);
     stringBuffer.append(className);
     stringBuffer.append(TEXT_9);
+     List<Column> columnList = jetModel.getColumnList(); 
     stringBuffer.append(TEXT_10);
+    	for (int i =0;i<columnList.size();i++) {
+						    String douhao = ","; 
+							if(columnList.size()-1==i){
+								douhao="";
+							}
+							Column column = columnList.get(i);
+							String name = column.getName();
+							String text = column.getText();
+							String length = column.getLength();
+							String nameUpper =name.substring(0, 1).toUpperCase()+name.substring(1);
+							String databaseColumnName = AppUtil.classNameTodataBaseName(name);
+							String type = column.getType();
+				
+    stringBuffer.append(TEXT_11);
+    stringBuffer.append(text);
+    stringBuffer.append(TEXT_12);
+    stringBuffer.append(name);
+    stringBuffer.append(TEXT_13);
+    }
+    stringBuffer.append(TEXT_14);
+    stringBuffer.append(TEXT_15);
     return stringBuffer.toString();
   }
 }
