@@ -16,7 +16,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
@@ -24,6 +23,7 @@ import com.hh.rdp.temp.SpringXmlTemplate;
 import com.hh.rdp.util.AppUtil;
 import com.hh.rdp.util.FileUtil;
 import com.hh.rdp.util.FrameMessage;
+import com.hh.rdp.util.StaticVar;
 import com.hh.rdp.util.WidgetUtil;
 import com.hh.rdp.util.XmlFormat;
 
@@ -82,22 +82,27 @@ public class GenerateJarStructureDialog extends Dialog {
 	@Override
 	protected void okPressed() {
 		try {
-			AppUtil.createSrcFolder(project, "src/main/java");
-//			AppUtil.createSrcFolder(project, "src/main/js");
-			AppUtil.createSrcFolder(project, "src/main/resources");
-			AppUtil.createSrcFolder(project, "src/main/jsp");
+			AppUtil.createSrcFolder(project, StaticVar.JAVA_SOURCE_FOLDER);
+			// AppUtil.createSrcFolder(project, "src/main/js");
+			AppUtil.createSrcFolder(project,
+					StaticVar.RESOURCE_PAGE_SOURCE_FOLDER);
+			AppUtil.createSrcFolder(project, StaticVar.JSP_PAGE_SOURCE_FOLDER);
 
-			AppUtil.createPackageFragment(project, "src/main/java",
-					basePackText.getText() + ".action");
-			AppUtil.createPackageFragment(project, "src/main/java",
-					basePackText.getText() + ".bean");
-			AppUtil.createPackageFragment(project, "src/main/java",
-					basePackText.getText() + ".service.impl");
-			AppUtil.createPackageFragment(project, "src/main/java",
-					basePackText.getText() + ".util");
+			AppUtil.createPackageFragment(project,
+					StaticVar.JAVA_SOURCE_FOLDER, basePackText.getText()
+							+ ".action");
+			AppUtil.createPackageFragment(project,
+					StaticVar.JAVA_SOURCE_FOLDER, basePackText.getText()
+							+ ".bean");
+			AppUtil.createPackageFragment(project,
+					StaticVar.JAVA_SOURCE_FOLDER, basePackText.getText()
+							+ ".service.impl");
+			AppUtil.createPackageFragment(project,
+					StaticVar.JAVA_SOURCE_FOLDER, basePackText.getText()
+							+ ".util");
 
-//			AppUtil.createPackageFragment(project, "src/main/js", "page."
-//					+ basePackText.getText());
+			// AppUtil.createPackageFragment(project, "src/main/js", "page."
+			// + basePackText.getText());
 
 			AppUtil.createPackageFragment(project, "src/main/resources",
 					"spring");
@@ -105,11 +110,12 @@ public class GenerateJarStructureDialog extends Dialog {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("packName", basePackText.getText());
 			String code = springXmlTemplate.generate(map);
-			AppUtil.createCode(project, "src/main/resources", "spring", code,
-					projectNameText.getText() + "-spring.xml");
+			AppUtil.createCode(project, StaticVar.RESOURCE_PAGE_SOURCE_FOLDER,
+					"spring", code, projectNameText.getText() + "-spring.xml");
 
-			AppUtil.createPackageFragment(project, "src/main/jsp", "jsp."
-					+ basePackText.getText());
+			AppUtil.createPackageFragment(project,
+					StaticVar.JSP_PAGE_SOURCE_FOLDER,
+					"jsp." + basePackText.getText());
 
 			String pomXmlString2 = pomXmlString;
 

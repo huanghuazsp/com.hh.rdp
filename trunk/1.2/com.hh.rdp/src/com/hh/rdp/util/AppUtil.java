@@ -181,5 +181,26 @@ public class AppUtil {
 		}
 		return className.toUpperCase();
 	}
+	
+	public static String dataBaseNameToClassName(String tablename) {
+		String[] tmp = tablename.split("_");
+		// 最终的表名
+		String finalClassName = "";
+		String firstChar = "";
+		String otherChar = "";
+		if (tmp.length == 1) {
+			// 没有下划线
+			firstChar = tmp[0].substring(0, 1).toUpperCase();
+			otherChar = tmp[0].substring(1).toLowerCase();
+			finalClassName = firstChar + otherChar;
+		} else {
+			for (int i = 0; i < tmp.length; i++) {
+				firstChar = tmp[i].substring(0, 1).toUpperCase();
+				otherChar = tmp[i].substring(1).toLowerCase();
+				finalClassName = finalClassName + firstChar + otherChar;
+			}
+		}
+		return finalClassName;
+	}
 
 }

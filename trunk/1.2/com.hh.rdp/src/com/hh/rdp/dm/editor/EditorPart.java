@@ -31,10 +31,9 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
 import com.hh.rdp.dm.PageGrid;
-import com.hh.rdp.dm.StaticVar;
 import com.hh.rdp.dm.model.Project;
-import com.hh.rdp.dm.model.Table;
 import com.hh.rdp.util.Check;
+import com.hh.rdp.util.StaticVar;
 import com.hh.rdp.util.XmlFormat;
 
 public class EditorPart extends FormEditor implements
