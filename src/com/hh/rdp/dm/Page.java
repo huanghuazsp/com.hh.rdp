@@ -102,11 +102,12 @@ public class Page extends FormPage {
 
 	private void createButton(FormToolkit toolkit, Composite client) {
 
-		final Button add = toolkit.createButton(client, "添加字段", SWT.PUSH);
-		add.setImage(ImageCache.getImage(ImageKeys.database_add));
+		final Button add = toolkit.createButton(client, "添加", SWT.PUSH);
+		add.setImage(ImageCache.getImage(ImageKeys.database_table_add));
 		add.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				new PageEdit(Page.this, add.getShell()).open();
+				new TableEditPage(Page.this, add.getShell()).open();
+				new ColumnEditPage(Page.this, add.getShell()).open();
 			}
 		});
 

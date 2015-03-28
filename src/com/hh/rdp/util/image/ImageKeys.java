@@ -11,6 +11,7 @@ public final class ImageKeys {
 	public static final String database_table = "icons/database_table.png";
 	public static final String database_project = "icons/database_project.png";
 	public static final String database_add = "icons/database_add.png";
+	public static final String database_table_add = "icons/database_table_add.png";
 	public static final String database_delete = "icons/database_delete.png";
 	public static final String database_save = "icons/database_save.png";
 	public static final String database_import = "icons/database_import.gif";

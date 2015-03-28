@@ -8,6 +8,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 import com.hh.rdp.dm.model.Column;
+import com.hh.rdp.dm.model.Project;
 import com.hh.rdp.dm.model.Table;
 
 public class PageContentProvider implements IStructuredContentProvider,
@@ -21,7 +22,14 @@ public class PageContentProvider implements IStructuredContentProvider,
 	}
 
 	public Object[] getChildren(Object parentElement) {
-		if (parentElement instanceof Table) {
+		if (parentElement instanceof Project) {
+			Project node = (Project) parentElement;
+			List<Table> list = node.getChildren();
+			if (list == null) {
+				return new Object[0];
+			}
+			return list.toArray();
+		}else if (parentElement instanceof Table) {
 			Table node = (Table) parentElement;
 			List<Column> list = node.getChildren();
 			if (list == null) {
@@ -35,7 +43,11 @@ public class PageContentProvider implements IStructuredContentProvider,
 	}
 
 	public boolean hasChildren(Object element) {
-		if (element instanceof Table) {
+		if (element instanceof Project) {
+			Project node = (Project) element;
+			List<Table> list = node.getChildren();
+			return !(list == null || list.isEmpty());
+		} else if (element instanceof Table) {
 			Table node = (Table) element;
 			List<Column> list = node.getChildren();
 			return !(list == null || list.isEmpty());
