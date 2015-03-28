@@ -111,7 +111,7 @@ public class CreateSourceDialog extends Dialog {
 		WidgetUtil.createLabel2(composite, "BEAN类名：");
 		classNameText = new Text(composite, SWT.BORDER);
 		classNameText.setLayoutData(baseGridData);
-		classNameText.setText(AppUtil.dataBaseNameToClassName(table.getName()));
+		classNameText.setText(table.getName().substring(0, 1).toUpperCase()+table.getName().substring(1));
 
 		FileEditorInput fileEditorInput = (FileEditorInput) page
 				.getEditorPartMain().getEditorInput();
