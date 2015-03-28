@@ -174,7 +174,7 @@ public class EditorPart extends FormEditor implements
 		Project project = (Project) page.getViewer().getTree().getItem(0).getData();
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		try {
-			JAXBContext context = JAXBContext.newInstance(Table.class);
+			JAXBContext context = JAXBContext.newInstance(Project.class);
 			Marshaller m = context.createMarshaller();
 			IDocumentProvider documentProvider = editor.getDocumentProvider();
 			m.marshal(project, outputStream);

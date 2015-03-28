@@ -13,16 +13,16 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import com.hh.rdp.dm.model.Column;
+import com.hh.rdp.dm.model.Project;
 import com.hh.rdp.dm.model.Table;
 import com.hh.rdp.util.Check;
 import com.hh.rdp.util.FrameMessage;
 
-public class PageEdit extends Dialog {
+public class TableEditPage extends Dialog {
 	private Page page;
 	private Text nameText;
 
-	public PageEdit(Page page, Shell parentShell) {
+	public TableEditPage(Page page, Shell parentShell) {
 		super(parentShell);
 		this.page = page;
 	}
@@ -32,12 +32,12 @@ public class PageEdit extends Dialog {
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 				1, 1));
-		getShell().setText("添加字段");
+		getShell().setText("表编辑");
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.numColumns = 3;
 		composite.setLayout(gridLayout);
 		Label label = new Label(composite, SWT.NONE);
-		label.setText("字段名称：");
+		label.setText("名称：");
 		nameText = new Text(composite, SWT.BORDER);
 		nameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 				1, 1));
@@ -54,18 +54,15 @@ public class PageEdit extends Dialog {
 		if (!checkName(nameText.getText())) {
 			return;
 		}
-		Column column = new Column();
-		column.setId(UUID.randomUUID().toString());
-		column.setText(nameText.getText());
-		column.setName(nameText.getText());
-		Table table = (Table) page.getViewer().getTree().getItem(0).getData();
-		table.getChildren().add(column);
+		Table table = new Table();
+		table.setId(UUID.randomUUID().toString());
+		table.setText(nameText.getText());
+		table.setName(nameText.getText());
+		Project project = (Project) page.getViewer().getTree().getItem(0).getData();
+		project.getChildren().add(table);
 		page.getViewer().refresh();
 		nameText.setText("");
 		page.getEditorPartMain().setPageModified(true);
-//		TreeItem treeItem = page.getViewer().getTree().getItem(0);
-//		page.getViewer().getTree()
-//				.setSelection(treeItem.getItem(treeItem.getItemCount() - 1));
 		this.close();
 	}
 
