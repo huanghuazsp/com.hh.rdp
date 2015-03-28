@@ -32,6 +32,7 @@ import com.hh.rdp.util.AppUtil;
 import com.hh.rdp.util.Convert;
 import com.hh.rdp.util.FileUtil;
 import com.hh.rdp.util.FrameMessage;
+import com.hh.rdp.util.StaticVar;
 import com.hh.rdp.util.WidgetUtil;
 import com.hh.rdp.view.OpenPreviewView;
 
@@ -152,30 +153,30 @@ public class GenerateCodeDialog extends Dialog {
 
 			BeanJavaTemplate beanJavaTemplate = new BeanJavaTemplate();
 			String domainCode = beanJavaTemplate.generate(jetModel);
-			AppUtil.createCode(project, "src/main/java",
+			AppUtil.createCode(project, StaticVar.JAVA_SOURCE_FOLDER,
 					beanPackText.getText(), domainCode, className + ".java");
 
 			ActionJavaTemplate actionJavaTemplate = new ActionJavaTemplate();
 			String actionCode = actionJavaTemplate.generate(jetModel);
-			AppUtil.createCode(project, "src/main/java",
+			AppUtil.createCode(project, StaticVar.JAVA_SOURCE_FOLDER,
 					actionPackText.getText(), actionCode, "Action" + className
 							+ ".java");
 
 			ServiceJavaTemplate serviceJavaTemplate = new ServiceJavaTemplate();
 			String serviceCode = serviceJavaTemplate.generate(jetModel);
-			AppUtil.createCode(project, "src/main/java",
+			AppUtil.createCode(project, StaticVar.JAVA_SOURCE_FOLDER,
 					servicePackText.getText(), serviceCode, className
 							+ "Service.java");
 
 			ListJsTemplate listJsTemplate = new ListJsTemplate();
 			String listCode = listJsTemplate.generate(jetModel);
-			AppUtil.createCode(project, "src/main/js",
+			AppUtil.createCode(project, StaticVar.JS_PAGE_SOURCE_FOLDER,
 					"page." + basePackText.getText() + "." + className,
 					listCode, className + "List.class.js");
 
 			EditJsTemplate editJsTemplate = new EditJsTemplate();
 			String editCode = editJsTemplate.generate(jetModel);
-			AppUtil.createCode(project, "src/main/js",
+			AppUtil.createCode(project, StaticVar.JS_PAGE_SOURCE_FOLDER,
 					"page." + basePackText.getText() + "." + className,
 					editCode, className + "Edit.class.js");
 
@@ -212,8 +213,8 @@ public class GenerateCodeDialog extends Dialog {
 			} else {
 				column.setType("String");
 			}
-			
-			if (Convert.toLong(column.getLength())>4000) {
+
+			if (Convert.toLong(column.getLength()) > 4000) {
 				column.setLob(true);
 			}
 
