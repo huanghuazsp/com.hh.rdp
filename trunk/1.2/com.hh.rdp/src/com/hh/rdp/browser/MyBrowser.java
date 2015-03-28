@@ -24,6 +24,15 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 public class MyBrowser {
+	public static String basePath;
+	static {
+		if (System.getProperty("user.dir").indexOf("runtime") > -1) {
+			basePath = "D:/kaifa/eclipse/hh/";
+		} else {
+			basePath = System.getProperty("user.dir") + "/hh/";
+		}
+		basePath = basePath.replaceAll("\\\\", "/");
+	}
 	private Label throbber;
 
 	private Button button;
@@ -109,7 +118,7 @@ public class MyBrowser {
 		url = new Combo(controls, SWT.ARROW_DOWN);
 		url.setSize(600, url.getSize().y);
 		url.setFocus();
-		
+
 		GridData urlGridData = new GridData();
 		urlGridData.horizontalAlignment = GridData.FILL;
 		urlGridData.grabExcessHorizontalSpace = true;
@@ -144,8 +153,10 @@ public class MyBrowser {
 		gridData.grabExcessVerticalSpace = true; // 抢占垂直方向额外空间
 		gridData.horizontalAlignment = GridData.FILL;// 水平方向充满
 		gridData.grabExcessHorizontalSpace = true;// 抢占水平方向额外空间
-	     System.setProperty("org.eclipse.swt.browser.XULRunnerPath", "D:\\kaifa\\xulrunner"); 
-		browser = new Browser(controls,  SWT.MOZILLA);
+		System.setProperty("org.eclipse.swt.browser.XULRunnerPath", basePath
+				+ "xulrunner");
+//		 browser = new Browser(controls, SWT.MOZILLA);
+		browser = new Browser(controls, SWT.ABORT);
 		browser.setLayoutData(gridData);
 		browser.addOpenWindowListener(new OpenWindowListener() {
 			public void open(WindowEvent arg0) {

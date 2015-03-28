@@ -13,17 +13,18 @@ public class PreviewView extends ViewPart {
 
 	@Override
 	public void createPartControl(Composite parent) {
-		OpenPreviewView.viewPart=this;
-		
+		OpenPreviewView.viewPart = this;
+
 		Composite composite = new Composite(parent, SWT.NONE);
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.numColumns = 10;
 		composite.setLayout(gridLayout);
 		myBrowser = new MyBrowser();
-		myBrowser
-				.createContents2(
-						"http://localhost:8080/HHSSHE/webapp-desktop-page?params={vsj:%22com.hh.form.MainFormDesigner%22}",
-						composite);
+//		String pathString = "file://"+MyBrowser.basePath
+//				+ "hhcommon/opensource/ckeditor/ckeditor.html";
+		
+		String pathString = "http://localhost:8080/hhcommon/opensource/ckeditor/ckeditor.html";
+		myBrowser.createContents2(pathString, composite);
 		new InitFunction(myBrowser.getBrowser(), "InitComplete");
 	}
 
