@@ -13,18 +13,30 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import com.hh.rdp.dm.model.Column;
 import com.hh.rdp.dm.model.Project;
 import com.hh.rdp.dm.model.Table;
 import com.hh.rdp.util.Check;
 import com.hh.rdp.util.FrameMessage;
 
 public class TableEditPage extends Dialog {
-	private Page page;
+	private PageGrid page;
 	private Text nameText;
 
-	public TableEditPage(Page page, Shell parentShell) {
+	private Table table;
+	private Project project;
+	private boolean edit;
+
+	public TableEditPage(PageGrid page, Shell parentShell, Object object) {
 		super(parentShell);
 		this.page = page;
+		if (object instanceof Table) {
+			this.table = (Table) object;
+			edit = true;
+		} else if (object instanceof Project) {
+			this.project = (Project) object;
+			edit = false;
+		}
 	}
 
 	@Override
@@ -41,6 +53,10 @@ public class TableEditPage extends Dialog {
 		nameText = new Text(composite, SWT.BORDER);
 		nameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 				1, 1));
+
+		if (edit) {
+			nameText.setText(table.getText());
+		}
 		return composite;
 	}
 
@@ -54,16 +70,23 @@ public class TableEditPage extends Dialog {
 		if (!checkName(nameText.getText())) {
 			return;
 		}
-		Table table = new Table();
-		table.setId(UUID.randomUUID().toString());
-		table.setText(nameText.getText());
-		table.setName(nameText.getText());
-		Project project = (Project) page.getViewer().getTree().getItem(0).getData();
-		project.getChildren().add(table);
+		if (edit) {
+			huitian(table);
+		} else {
+			Table table = new Table();
+			huitian(table);
+			project.getChildren().add(table);
+		}
 		page.getViewer().refresh();
 		nameText.setText("");
 		page.getEditorPartMain().setPageModified(true);
 		this.close();
+	}
+
+	private void huitian(Table table) {
+		table.setId(UUID.randomUUID().toString());
+		table.setText(nameText.getText());
+		table.setName(nameText.getText());
 	}
 
 	public boolean checkName(String name) {

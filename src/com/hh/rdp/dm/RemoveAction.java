@@ -14,14 +14,14 @@ import com.hh.rdp.dm.model.Table;
 import com.hh.rdp.util.FrameMessage;
 
 public class RemoveAction extends Action {
-	private Page page = null;
+	private PageGrid page = null;
 	private ISelectionChangedListener listener = new ISelectionChangedListener() {
 		public void selectionChanged(SelectionChangedEvent e) {
 			setEnabled(!e.getSelection().isEmpty());
 		}
 	};
 
-	public RemoveAction(Page page, String text) {
+	public RemoveAction(PageGrid page, String text) {
 		super(text, PlatformUI.getWorkbench().getSharedImages()
 				.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
 		setEnabled(false);

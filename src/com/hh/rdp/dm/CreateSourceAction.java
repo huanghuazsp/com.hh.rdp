@@ -9,9 +9,9 @@ import com.hh.rdp.util.FrameMessage;
 import com.hh.rdp.util.image.ImageKeys;
 
 public class CreateSourceAction extends Action {
-	private Page page;
+	private PageGrid page;
 
-	public CreateSourceAction(Page page) {
+	public CreateSourceAction(PageGrid page) {
 		super("生成代码", ImageKeys
 				.getImageDescriptor(ImageKeys.database_lightning));
 		this.page = page;
