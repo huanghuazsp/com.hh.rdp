@@ -101,7 +101,7 @@ public class Column  {
 	public void setMap(Map<String, String> map) {
 		this.map = map;
 	}
-
+	@XmlTransient
 	public Table getParent() {
 		return parent;
 	}
