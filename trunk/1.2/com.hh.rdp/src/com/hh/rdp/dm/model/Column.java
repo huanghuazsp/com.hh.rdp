@@ -17,6 +17,8 @@ public class Column  {
 	private String empty = "true";
 	private String primary = "false";
 	private String defaultValue = "";
+	
+	private Table parent;
 	private Map<String, String> map = new HashMap<String, String>();
 	@XmlAttribute
 	public String getId() {
@@ -98,6 +100,14 @@ public class Column  {
 
 	public void setMap(Map<String, String> map) {
 		this.map = map;
+	}
+
+	public Table getParent() {
+		return parent;
+	}
+
+	public void setParent(Table parent) {
+		this.parent = parent;
 	}
 	
 }

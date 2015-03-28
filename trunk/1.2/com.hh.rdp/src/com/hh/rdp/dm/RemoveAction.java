@@ -1,13 +1,11 @@
 package com.hh.rdp.dm;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
@@ -40,30 +38,22 @@ public class RemoveAction extends Action {
 	}
 
 	public void doDelete() {
-		TreeViewer viewer = this.page.getViewer();
-		TreeItem[] treeItems = viewer.getTree().getSelection();
-		Table table = (Table) viewer.getTree().getItem(0).getData();
-		if (treeItems.length == 1) {
-			String msg = "您确定删除选中的字段吗？";
-			if (treeItems[0].getData() instanceof Table) {
-				msg = "您确定删除所有的字段吗？";
-			}
-			if (!FrameMessage.question(msg)) {
-				return;
-			}
-			if (treeItems[0].getData() instanceof Column) {
-				Column column = ((Column) treeItems[0].getData());
-				for (int i = 0; i < table.getChildren().size(); i++) {
-					if (table.getChildren().get(i).equals(column)) {
-						table.getChildren().remove(i);
-						break;
-					}
-				}
-			} else {
-				table.setChildren(new ArrayList<Column>());
-			}
-			viewer.refresh();
-			page.getEditorPartMain().setPageModified(true);
+		String msg = "您确定删除选中的字段吗？";
+		if (!FrameMessage.question(msg)) {
+			return;
 		}
+		List<Object> objects = this.page.getSelectObjectList();
+		for (Object object : objects) {
+			if (object instanceof Column) {
+				Column column = (Column) object;
+				column.getParent().getChildren().remove(object);
+			} else if (object instanceof Table) {
+				Table table = (Table) object;
+				table.getParent().getChildren().remove(object);
+			}
+		}
+
+		this.page.getViewer().refresh();
+		page.getEditorPartMain().setPageModified(true);
 	}
 }
