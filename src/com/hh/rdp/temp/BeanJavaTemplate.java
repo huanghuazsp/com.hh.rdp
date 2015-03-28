@@ -59,6 +59,7 @@ public class BeanJavaTemplate
 			String length = column.getLength();
 			String nameUpper =name.substring(0, 1).toUpperCase()
 			+name.substring(1);
+			String databaseColumnName = AppUtil.classNameTodataBaseName(name);
 			String type = column.getType();
 
     stringBuffer.append(TEXT_6);
@@ -75,12 +76,15 @@ public class BeanJavaTemplate
 		}
 		if("Date".equals(type)){
 			columnStr="@Temporal(TemporalType.TIMESTAMP)\n\t"
-			+"@Column( length = 7";
+			+"@Column(name=\""+databaseColumnName+"\",length = 7";
 		}else{
-			columnStr+="@Column(";
+			columnStr+="@Column(name=\""+databaseColumnName+"\",";
 			if(Check.isNoEmpty(length)){
 				columnStr+=" length = "+length;
 			}
+		}
+		if(columnStr.endsWith(",")){
+			columnStr=columnStr.substring(0,columnStr.length()-1);
 		}
 		columnStr+=")";
 	

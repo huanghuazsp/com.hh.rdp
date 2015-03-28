@@ -146,13 +146,9 @@ public class AppUtil {
 					.findPackageFragmentRoot(new Path("/" + project.getName()
 							+ "/" + folder));
 			IPackageFragment packageFragment = null;
-try {
-	 packageFragment = packageFragmentRoot
-			.getPackageFragment(packageName);
-} catch (Exception e) {
-e.printStackTrace();
-}
-			
+			packageFragment = packageFragmentRoot
+					.getPackageFragment(packageName);
+
 			if (!packageFragment.exists()) {
 				packageFragment = packageFragmentRoot.createPackageFragment(
 						packageName, true, null);
@@ -173,7 +169,7 @@ e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	public static String classNameTodataBaseName(String className) {
 		String[] replaceStrArr = new String[] { "A", "B", "C", "D", "E", "F",
 				"G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
@@ -182,11 +178,11 @@ e.printStackTrace();
 			className = className.replace(string, "_" + string);
 		}
 		if (className.startsWith("_")) {
-			className=className.substring(1);
+			className = className.substring(1);
 		}
 		return className.toUpperCase();
 	}
-	
+
 	public static String dataBaseNameToClassName(String tablename) {
 		String[] tmp = tablename.split("_");
 		// 最终的表名

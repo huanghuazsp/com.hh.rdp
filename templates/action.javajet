@@ -9,7 +9,7 @@
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.hh.baseframework.util.base.BaseServiceAction;
+import com.hh.system.util.base.BaseServiceAction;
 import <%=jetModel.getPackName()%>.<%=jetModel.getClassName()%>;
 import com.hh.system.service.impl.BaseService;
 import <%=jetModel.getServicePackName()%>.<%=jetModel.getClassName()%>Service;

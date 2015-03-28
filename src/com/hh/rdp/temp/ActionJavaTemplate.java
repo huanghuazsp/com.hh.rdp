@@ -18,7 +18,7 @@ public class ActionJavaTemplate
 
   public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = " package ";
-  protected final String TEXT_2 = ";" + NL + "" + NL + "import org.springframework.beans.factory.annotation.Autowired;" + NL + "" + NL + "import com.hh.baseframework.util.base.BaseServiceAction;" + NL + "import ";
+  protected final String TEXT_2 = ";" + NL + "" + NL + "import org.springframework.beans.factory.annotation.Autowired;" + NL + "" + NL + "import com.hh.system.util.base.BaseServiceAction;" + NL + "import ";
   protected final String TEXT_3 = ".";
   protected final String TEXT_4 = ";" + NL + "import com.hh.system.service.impl.BaseService;" + NL + "import ";
   protected final String TEXT_5 = ".";
