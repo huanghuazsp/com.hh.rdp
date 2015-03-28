@@ -20,6 +20,7 @@ public class Table    {
 	private List<Column> children = new ArrayList<Column>();
 	
 	private Map<String, String> map = new HashMap<String, String>();
+	private Project parent;
 
 	@XmlElements({ @XmlElement(name = "column", type = Column.class) })
 	public List<Column> getChildren() {
@@ -72,6 +73,14 @@ public class Table    {
 
 	public void setMap(Map<String, String> map) {
 		this.map = map;
+	}
+
+	public Project getParent() {
+		return parent;
+	}
+
+	public void setParent(Project parent) {
+		this.parent = parent;
 	}
 
 }

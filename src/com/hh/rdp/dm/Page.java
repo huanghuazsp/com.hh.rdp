@@ -1,5 +1,8 @@
 package com.hh.rdp.dm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
@@ -16,6 +19,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormPage;
@@ -25,6 +29,10 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
 import com.hh.rdp.dm.editor.EditorPart;
+import com.hh.rdp.dm.model.Column;
+import com.hh.rdp.dm.model.Project;
+import com.hh.rdp.dm.model.Table;
+import com.hh.rdp.util.FrameMessage;
 import com.hh.rdp.util.image.ImageCache;
 import com.hh.rdp.util.image.ImageKeys;
 
@@ -78,15 +86,15 @@ public class Page extends FormPage {
 		column = new TreeColumn(viewer.getTree(), SWT.LEFT);
 		column.setText("类型");
 		column.setWidth(130);
-		
+
 		column = new TreeColumn(viewer.getTree(), SWT.LEFT);
 		column.setText("是否可为空");
 		column.setWidth(80);
-		
+
 		column = new TreeColumn(viewer.getTree(), SWT.LEFT);
 		column.setText("长度");
 		column.setWidth(40);
-		
+
 		column = new TreeColumn(viewer.getTree(), SWT.LEFT);
 		column.setText("默认值");
 		column.setWidth(100);
@@ -100,22 +108,62 @@ public class Page extends FormPage {
 		this.getSite().setSelectionProvider(viewer);
 	}
 
+	public List<Object> getSelectObjectList() {
+		Project project = (Project) viewer.getTree().getItem(0).getData();
+
+		List<Table> tableList = project.getChildren();
+		for (Table table : tableList) {
+			table.setParent(project);
+			List<Column> columns = table.getChildren();
+			for (Column column : columns) {
+				column.setParent(table);
+			}
+		}
+
+		List<Object> objectList = new ArrayList<Object>();
+		TreeItem[] treeItems = viewer.getTree().getSelection();
+		for (TreeItem treeItem : treeItems) {
+			objectList.add(treeItem.getData());
+		}
+		return objectList;
+	}
+
 	private void createButton(FormToolkit toolkit, Composite client) {
 
 		final Button add = toolkit.createButton(client, "添加", SWT.PUSH);
 		add.setImage(ImageCache.getImage(ImageKeys.database_table_add));
 		add.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				new TableEditPage(Page.this, add.getShell()).open();
-				new ColumnEditPage(Page.this, add.getShell()).open();
+				if (getSelectObjectList().size() > 0
+						&& getSelectObjectList().get(0) instanceof Table) {
+					new ColumnEditPage(Page.this, add.getShell()).open();
+				} else {
+					new TableEditPage(Page.this, add.getShell()).open();
+				}
 			}
 		});
 
-		Button delete = toolkit.createButton(client, "删除字段", SWT.PUSH);
+		Button delete = toolkit.createButton(client, "删除", SWT.PUSH);
 		delete.setImage(ImageCache.getImage(ImageKeys.database_delete));
 		delete.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
 				removeAction.doDelete();
+			}
+		});
+
+		final Button edit = toolkit.createButton(client, "修改", SWT.PUSH);
+		edit.setImage(ImageCache.getImage(ImageKeys.database_edit));
+		edit.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent event) {
+				List<Object> selectObjectList = getSelectObjectList();
+				if (selectObjectList.size() > 0) {
+					if (selectObjectList.get(0) instanceof Table) {
+						new TableEditPage(Page.this, edit.getShell()).open();
+					} else if(selectObjectList.get(0) instanceof Column) {
+						new ColumnEditPage(Page.this, edit.getShell()).open();
+					}
+				}
+
 			}
 		});
 
