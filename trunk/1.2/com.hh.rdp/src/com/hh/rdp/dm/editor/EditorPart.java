@@ -30,7 +30,7 @@ import org.eclipse.ui.views.properties.tabbed.ITabbedPropertySheetPageContributo
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
-import com.hh.rdp.dm.Page;
+import com.hh.rdp.dm.PageGrid;
 import com.hh.rdp.dm.StaticVar;
 import com.hh.rdp.dm.model.Project;
 import com.hh.rdp.dm.model.Table;
@@ -40,7 +40,7 @@ import com.hh.rdp.util.XmlFormat;
 public class EditorPart extends FormEditor implements
 		ITabbedPropertySheetPageContributor {
 
-	private Page page = null;
+	private PageGrid page = null;
 	private StructuredTextEditor editor;
 	private boolean isPageModified;
 
@@ -195,7 +195,7 @@ public class EditorPart extends FormEditor implements
 	protected void addPages() {
 		try {
 			editor = new StructuredTextEditor();
-			this.page = new Page(this, editor);
+			this.page = new PageGrid(this, editor);
 			addPage(this.page);
 			createPage0();
 		} catch (PartInitException e) {
@@ -229,11 +229,11 @@ public class EditorPart extends FormEditor implements
 		return getSite().getId();
 	}
 
-	public Page getPage() {
+	public PageGrid getPage() {
 		return page;
 	}
 
-	public void setPage(Page page) {
+	public void setPage(PageGrid page) {
 		this.page = page;
 	}
 

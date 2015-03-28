@@ -32,11 +32,10 @@ import com.hh.rdp.dm.editor.EditorPart;
 import com.hh.rdp.dm.model.Column;
 import com.hh.rdp.dm.model.Project;
 import com.hh.rdp.dm.model.Table;
-import com.hh.rdp.util.FrameMessage;
 import com.hh.rdp.util.image.ImageCache;
 import com.hh.rdp.util.image.ImageKeys;
 
-public class Page extends FormPage {
+public class PageGrid extends FormPage {
 	private EditorPart editorPartMain;
 	private TreeViewer viewer;
 	private StructuredTextEditor sourceEditor;
@@ -134,11 +133,14 @@ public class Page extends FormPage {
 		add.setImage(ImageCache.getImage(ImageKeys.database_table_add));
 		add.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				if (getSelectObjectList().size() > 0
-						&& getSelectObjectList().get(0) instanceof Table) {
-					new ColumnEditPage(Page.this, add.getShell(),getSelectObjectList().get(0)).open();
+				List<Object> selectObjectList = getSelectObjectList();
+				if (selectObjectList.size() > 0
+						&& selectObjectList.get(0) instanceof Table) {
+					new ColumnEditPage(PageGrid.this, add.getShell(),
+							selectObjectList.get(0)).open();
 				} else {
-					new TableEditPage(Page.this, add.getShell()).open();
+					new TableEditPage(PageGrid.this, add.getShell(), viewer
+							.getTree().getItem(0).getData()).open();
 				}
 			}
 		});
@@ -158,12 +160,13 @@ public class Page extends FormPage {
 				List<Object> selectObjectList = getSelectObjectList();
 				if (selectObjectList.size() > 0) {
 					if (selectObjectList.get(0) instanceof Table) {
-						new TableEditPage(Page.this, edit.getShell()).open();
-					} else if(selectObjectList.get(0) instanceof Column) {
-						new ColumnEditPage(Page.this, edit.getShell(),selectObjectList.get(0)).open();
+						new TableEditPage(PageGrid.this, edit.getShell(),
+								selectObjectList.get(0)).open();
+					} else if (selectObjectList.get(0) instanceof Column) {
+						new ColumnEditPage(PageGrid.this, edit.getShell(),
+								selectObjectList.get(0)).open();
 					}
 				}
-
 			}
 		});
 
@@ -182,7 +185,7 @@ public class Page extends FormPage {
 		menuMgr.setRemoveAllWhenShown(true);
 		menuMgr.addMenuListener(new IMenuListener() {
 			public void menuAboutToShow(IMenuManager m) {
-				Page.this.fillContextMenu(m);
+				PageGrid.this.fillContextMenu(m);
 			}
 		});
 		Tree tree = viewer.getTree();
@@ -203,7 +206,7 @@ public class Page extends FormPage {
 		createSourceAction = new CreateSourceAction(this);
 	}
 
-	public Page(EditorPart editor, StructuredTextEditor sourceEditor) {
+	public PageGrid(EditorPart editor, StructuredTextEditor sourceEditor) {
 		super(editor, "grid", "编辑");
 		this.editorPartMain = editor;
 		this.sourceEditor = sourceEditor;

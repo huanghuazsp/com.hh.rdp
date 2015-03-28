@@ -14,7 +14,7 @@ import com.hh.rdp.util.Check;
 import com.hh.rdp.util.FrameMessage;
 
 public class CreateSourceDialog extends Dialog {
-	private Page page;
+	private PageGrid page;
 	private Text basePackageText;
 	private Text domainPackageText;
 	private Text conditionPackageText;
@@ -28,7 +28,7 @@ public class CreateSourceDialog extends Dialog {
 	private Text projectText;
 	private Project project;
 
-	public CreateSourceDialog(Page page, Shell parentShell) {
+	public CreateSourceDialog(PageGrid page, Shell parentShell) {
 		super(parentShell);
 		this.page = page;
 	}

@@ -19,13 +19,13 @@ import com.hh.rdp.util.Check;
 import com.hh.rdp.util.FrameMessage;
 
 public class ColumnEditPage extends Dialog {
-	private Page page;
+	private PageGrid page;
 	private Text nameText;
 	private Table table;
 	private Column column;
 	private boolean edit;
 
-	public ColumnEditPage(Page page, Shell parentShell, Object object) {
+	public ColumnEditPage(PageGrid page, Shell parentShell, Object object) {
 		super(parentShell);
 		this.page = page;
 		if (object instanceof Table) {
@@ -69,14 +69,10 @@ public class ColumnEditPage extends Dialog {
 			return;
 		}
 		if (edit) {
-			column.setId(UUID.randomUUID().toString());
-			column.setText(nameText.getText());
-			column.setName(nameText.getText());
+			huitian(column);
 		}else {
 			Column column = new Column();
-			column.setId(UUID.randomUUID().toString());
-			column.setText(nameText.getText());
-			column.setName(nameText.getText());
+			huitian(column);
 			table.getChildren().add(column);
 		}
 		page.getViewer().refresh();
@@ -86,6 +82,12 @@ public class ColumnEditPage extends Dialog {
 		// page.getViewer().getTree()
 		// .setSelection(treeItem.getItem(treeItem.getItemCount() - 1));
 		this.close();
+	}
+
+	private void huitian(Column column) {
+		column.setId(UUID.randomUUID().toString());
+		column.setText(nameText.getText());
+		column.setName(nameText.getText());
 	}
 
 	public boolean checkName(String name) {
