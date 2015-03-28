@@ -21,10 +21,20 @@ import com.hh.rdp.util.FrameMessage;
 public class ColumnEditPage extends Dialog {
 	private Page page;
 	private Text nameText;
+	private Table table;
+	private Column column;
+	private boolean edit;
 
-	public ColumnEditPage(Page page, Shell parentShell) {
+	public ColumnEditPage(Page page, Shell parentShell, Object object) {
 		super(parentShell);
 		this.page = page;
+		if (object instanceof Table) {
+			this.table = (Table) object;
+			edit = false;
+		} else if (object instanceof Column) {
+			this.column = (Column) object;
+			edit = true;
+		}
 	}
 
 	@Override
@@ -32,7 +42,7 @@ public class ColumnEditPage extends Dialog {
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 				1, 1));
-		getShell().setText("添加字段");
+		getShell().setText("字段编辑");
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.numColumns = 3;
 		composite.setLayout(gridLayout);
@@ -41,6 +51,10 @@ public class ColumnEditPage extends Dialog {
 		nameText = new Text(composite, SWT.BORDER);
 		nameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 				1, 1));
+		
+		if (edit) {
+			nameText.setText(column.getText());
+		}
 		return composite;
 	}
 
@@ -54,18 +68,23 @@ public class ColumnEditPage extends Dialog {
 		if (!checkName(nameText.getText())) {
 			return;
 		}
-		Column column = new Column();
-		column.setId(UUID.randomUUID().toString());
-		column.setText(nameText.getText());
-		column.setName(nameText.getText());
-		Table table = (Table) page.getViewer().getTree().getItem(0).getData();
-		table.getChildren().add(column);
+		if (edit) {
+			column.setId(UUID.randomUUID().toString());
+			column.setText(nameText.getText());
+			column.setName(nameText.getText());
+		}else {
+			Column column = new Column();
+			column.setId(UUID.randomUUID().toString());
+			column.setText(nameText.getText());
+			column.setName(nameText.getText());
+			table.getChildren().add(column);
+		}
 		page.getViewer().refresh();
 		nameText.setText("");
 		page.getEditorPartMain().setPageModified(true);
-//		TreeItem treeItem = page.getViewer().getTree().getItem(0);
-//		page.getViewer().getTree()
-//				.setSelection(treeItem.getItem(treeItem.getItemCount() - 1));
+		// TreeItem treeItem = page.getViewer().getTree().getItem(0);
+		// page.getViewer().getTree()
+		// .setSelection(treeItem.getItem(treeItem.getItemCount() - 1));
 		this.close();
 	}
 

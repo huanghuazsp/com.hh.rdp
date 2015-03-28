@@ -75,6 +75,7 @@ public class Table    {
 		this.map = map;
 	}
 
+	@XmlTransient
 	public Project getParent() {
 		return parent;
 	}

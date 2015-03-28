@@ -136,7 +136,7 @@ public class Page extends FormPage {
 			public void widgetSelected(SelectionEvent event) {
 				if (getSelectObjectList().size() > 0
 						&& getSelectObjectList().get(0) instanceof Table) {
-					new ColumnEditPage(Page.this, add.getShell()).open();
+					new ColumnEditPage(Page.this, add.getShell(),getSelectObjectList().get(0)).open();
 				} else {
 					new TableEditPage(Page.this, add.getShell()).open();
 				}
@@ -160,7 +160,7 @@ public class Page extends FormPage {
 					if (selectObjectList.get(0) instanceof Table) {
 						new TableEditPage(Page.this, edit.getShell()).open();
 					} else if(selectObjectList.get(0) instanceof Column) {
-						new ColumnEditPage(Page.this, edit.getShell()).open();
+						new ColumnEditPage(Page.this, edit.getShell(),selectObjectList.get(0)).open();
 					}
 				}
 
