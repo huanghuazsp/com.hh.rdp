@@ -28,7 +28,9 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
+import com.hh.rdp.dm.action.AddAction;
 import com.hh.rdp.dm.action.CreateSourceAction;
+import com.hh.rdp.dm.action.EditAction;
 import com.hh.rdp.dm.action.RemoveAction;
 import com.hh.rdp.dm.editor.EditorPart;
 import com.hh.rdp.dm.model.Column;
@@ -43,6 +45,9 @@ public class PageGrid extends FormPage {
 	private StructuredTextEditor sourceEditor;
 	private RemoveAction removeAction;
 	private CreateSourceAction createSourceAction;
+
+	private AddAction addAction;
+	private EditAction editAction;
 
 	public TreeViewer getViewer() {
 		return viewer;
@@ -135,15 +140,7 @@ public class PageGrid extends FormPage {
 		add.setImage(ImageCache.getImage(ImageKeys.database_table_add));
 		add.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				List<Object> selectObjectList = getSelectObjectList();
-				if (selectObjectList.size() > 0
-						&& selectObjectList.get(0) instanceof Table) {
-					new ColumnEditPage(PageGrid.this, add.getShell(),
-							selectObjectList.get(0)).open();
-				} else {
-					new TableEditPage(PageGrid.this, add.getShell(), viewer
-							.getTree().getItem(0).getData()).open();
-				}
+				editAction.run();
 			}
 		});
 
@@ -159,16 +156,7 @@ public class PageGrid extends FormPage {
 		edit.setImage(ImageCache.getImage(ImageKeys.database_edit));
 		edit.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				List<Object> selectObjectList = getSelectObjectList();
-				if (selectObjectList.size() > 0) {
-					if (selectObjectList.get(0) instanceof Table) {
-						new TableEditPage(PageGrid.this, edit.getShell(),
-								selectObjectList.get(0)).open();
-					} else if (selectObjectList.get(0) instanceof Column) {
-						new ColumnEditPage(PageGrid.this, edit.getShell(),
-								selectObjectList.get(0)).open();
-					}
-				}
+				editAction.run();
 			}
 		});
 
@@ -199,11 +187,19 @@ public class PageGrid extends FormPage {
 		boolean isEmpty = viewer.getSelection().isEmpty();
 		removeAction.setEnabled(!isEmpty);
 		List<Object> objectList = getSelectObjectList();
-		
+
 		createSourceAction.setEnabled(false);
-		if (objectList.size()>0 && objectList.get(0) instanceof Table) {
+		if (objectList.size() > 0 && objectList.get(0) instanceof Table) {
 			createSourceAction.setEnabled(true);
 		}
+		editAction.setEnabled(false);
+		if (objectList.size() > 0
+				&& (objectList.get(0) instanceof Table || objectList.get(0) instanceof Column)) {
+			editAction.setEnabled(true);
+		}
+
+		menuMgr.add(addAction);
+		menuMgr.add(editAction);
 
 		menuMgr.add(createSourceAction);
 		menuMgr.add(removeAction);
@@ -213,6 +209,8 @@ public class PageGrid extends FormPage {
 	private void createActions() {
 		removeAction = new RemoveAction(this, "删除");
 		createSourceAction = new CreateSourceAction(this);
+		addAction = new AddAction(this);
+		editAction = new EditAction(this);
 	}
 
 	public PageGrid(EditorPart editor, StructuredTextEditor sourceEditor) {
