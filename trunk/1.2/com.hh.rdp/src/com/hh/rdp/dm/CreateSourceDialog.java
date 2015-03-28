@@ -208,13 +208,13 @@ public class CreateSourceDialog extends Dialog {
 					servicePackage, serviceCode, className + "Service.java");
 
 			ListJspTemplate listJsTemplate = new ListJspTemplate();
-			String listCode = listJsTemplate.generate(jetModel);
+			String listCode = listJsTemplate.generate(jetModel).replace("&lt;", "<").replace("&gt;", ">");
 			AppUtil.createCode(project, StaticVar.JSP_PAGE_SOURCE_FOLDER, "jsp."
 					+ basePackage + "." + className.toLowerCase(), listCode, className
 					+ "List.jsp");
 
 			EditJspTemplate editJsTemplate = new EditJspTemplate();
-			String editCode = editJsTemplate.generate(jetModel);
+			String editCode = editJsTemplate.generate(jetModel).replace("&lt;", "<").replace("&gt;", ">");
 			AppUtil.createCode(project, StaticVar.JSP_PAGE_SOURCE_FOLDER, "jsp."
 					+ basePackage + "." + className.toLowerCase(), editCode, className
 					+ "Edit.jsp");
@@ -226,16 +226,6 @@ public class CreateSourceDialog extends Dialog {
 			e.printStackTrace();
 		}
 		this.close();
-	}
-
-	private void createJspPageList(IPackageFragmentRoot packageFragmentRoot) {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void createBeanCode(IPackageFragmentRoot packageFragmentRoot) {
-		// TODO Auto-generated method stub
-
 	}
 
 	public boolean checkName(String name) {

@@ -1,5 +1,5 @@
 <dependency>
 	<groupId>com.hh.system</groupId>
-	<artifactId>hh-system</artifactId>
+	<artifactId>a-hh-system</artifactId>
 	<version>1.0</version>
 </dependency>

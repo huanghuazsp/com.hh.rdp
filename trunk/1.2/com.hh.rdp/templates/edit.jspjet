@@ -4,23 +4,82 @@
  com.hh.rdp.util.*"   class="EditJspTemplate"  %>
 <%
  	JetModel jetModel =(JetModel) argument;
+ 	String className = jetModel.getClassName();
+ 	String lowClassName = jetModel.getClassName().toLowerCase();
+ 	String modelName = jetModel.getModelName();
  %>
-Ext.define('<%=jetModel.getBasePackName()%>.<%=jetModel.getClassName()%>.<%=jetModel.getClassName()%>Edit', {
-extend : 'com.hh.global.SimpleFormPanelWindow',
-action : '<%=jetModel.getModelName()%>-<%=jetModel.getClassName()%>-',
-title : '<%=jetModel.getClassName()%>',
-width : 600,
-height : 400,
-constructor : function(config) {
-this.config = config || {};
-this.superclass.constructor.call(this, this.config);
-},
-getFormItems : function() {
-var formItesmJson = <%=jetModel.getFormJsonText()%>;
-formItesmJson.push({
-			name : 'id',
-			hidden : true
+ <%
+ 	String topStr="&lt;%@page language=\"java\" import=\"java.util.*\" pageEncoding=\"UTF-8\"%&gt;\n";
+ 	topStr+="&lt;%@page import=\"com.hh.system.util.BaseSystemUtil\"%&gt;\n";
+  	topStr+="&lt;%@page import=\"com.hh.system.util.Convert\"%&gt;\n";
+  	topStr+="&lt;%=BaseSystemUtil.getBaseDoctype()%&gt;\n";
+  	
+  	String jsStr = "&lt;%=BaseSystemUtil.getBaseJs(\"checkform\",\"date\")%&gt;\n";
+  	
+  	String objectIdStr = "&lt;%=Convert.toString(request.getParameter(\"id\"))%&gt;";
+ %>
+<%=topStr%>
+<html>
+<head>
+<title>数据编辑</title>
+<%=jsStr%>
+<script type="text/javascript">
+	var params = BaseUtil.getIframeParams();
+	var width = 600;
+	var height = 450;
+
+	var objectid = '<%=objectIdStr%>';
+
+	function save() {
+		$.hh.validation.check('form', function(formData) {
+			Request.request('<%=modelName%>-<%=className%>-save', {
+				data : formData,
+				callback : function(result) {
+					if (result.success) {
+						params.callback(formData);
+						Dialog.close();
+					}
+				}
+			});
 		});
-return  formItesmJson;
-}
-});
+	}
+
+	function findData() {
+		if (objectid) {
+			Request.request('<%=modelName%>-<%=className%>-findObjectById', {
+				data : {
+					id : objectid
+				},
+				callback : function(result) {
+					$('#form').setValue(result);
+				}
+			});
+		}
+	}
+
+	function init() {
+		findData();
+	}
+</script>
+</head>
+<body>
+	<div xtype="hh_content">
+		<form id="form" xtype="form">
+			<span xtype="text" config=" hidden:true,name : 'id'"></span>
+			<table xtype="form">
+				<tr>
+					<td xtype="label">test：</td>
+					<td><span xtype="text" config=" name : 'test' "></span></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div xtype="toolbar">
+		<span xtype="button" config="text:'保存' , onClick : save "></span> <span
+			xtype="button" config="text:'取消' , onClick : Dialog.close "></span>
+	</div>
+</body>
+</html>
+
+ 
+ 
