@@ -33,9 +33,9 @@ import com.hh.rdp.dm.action.CreateSourceAction;
 import com.hh.rdp.dm.action.EditAction;
 import com.hh.rdp.dm.action.RemoveAction;
 import com.hh.rdp.dm.editor.EditorPart;
-import com.hh.rdp.dm.model.Column;
 import com.hh.rdp.dm.model.Project;
 import com.hh.rdp.dm.model.Table;
+import com.hh.rdp.model.Column;
 import com.hh.rdp.util.image.ImageCache;
 import com.hh.rdp.util.image.ImageKeys;
 

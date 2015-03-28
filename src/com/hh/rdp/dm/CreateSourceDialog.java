@@ -26,8 +26,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.FileEditorInput;
 
-import com.hh.rdp.dm.model.Column;
 import com.hh.rdp.dm.model.Table;
+import com.hh.rdp.model.Column;
 import com.hh.rdp.util.AppUtil;
 import com.hh.rdp.util.Check;
 import com.hh.rdp.util.FrameMessage;
@@ -173,7 +173,7 @@ public class CreateSourceDialog extends Dialog {
 			packageFragmentRoot = javaPoject.findPackageFragmentRoot(new Path(
 					"/" + javaPoject.getElementName() + "/"
 							+ StaticVar.JSP_PAGE_SOURCE_FOLDER));
-			createPageList(packageFragmentRoot);
+			createJspPageList(packageFragmentRoot);
 			project.refreshLocal(IResource.DEPTH_INFINITE, null);
 		} catch (JavaModelException e) {
 			e.printStackTrace();
@@ -183,6 +183,16 @@ public class CreateSourceDialog extends Dialog {
 		this.close();
 	}
 
+
+	private void createJspPageList(IPackageFragmentRoot packageFragmentRoot) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void createBeanCode(IPackageFragmentRoot packageFragmentRoot) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	public boolean checkName(String name) {
 		boolean checkResult = true;

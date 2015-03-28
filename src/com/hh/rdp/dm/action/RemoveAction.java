@@ -10,8 +10,8 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
 import com.hh.rdp.dm.PageGrid;
-import com.hh.rdp.dm.model.Column;
 import com.hh.rdp.dm.model.Table;
+import com.hh.rdp.model.Column;
 import com.hh.rdp.util.FrameMessage;
 
 public class RemoveAction extends Action {

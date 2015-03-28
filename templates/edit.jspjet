@@ -1,0 +1,26 @@
+<%@ jet package="com.hh.rdp.temp" imports="java.util.*
+ com.hh.rdp.util.Convert
+ com.hh.rdp.model.*
+ com.hh.rdp.util.*"   class="EditJspTemplate"  %>
+<%
+ 	JetModel jetModel =(JetModel) argument;
+ %>
+Ext.define('<%=jetModel.getBasePackName()%>.<%=jetModel.getClassName()%>.<%=jetModel.getClassName()%>Edit', {
+extend : 'com.hh.global.SimpleFormPanelWindow',
+action : '<%=jetModel.getModelName()%>-<%=jetModel.getClassName()%>-',
+title : '<%=jetModel.getClassName()%>',
+width : 600,
+height : 400,
+constructor : function(config) {
+this.config = config || {};
+this.superclass.constructor.call(this, this.config);
+},
+getFormItems : function() {
+var formItesmJson = <%=jetModel.getFormJsonText()%>;
+formItesmJson.push({
+			name : 'id',
+			hidden : true
+		});
+return  formItesmJson;
+}
+});
