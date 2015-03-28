@@ -4,9 +4,9 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
 
-import com.hh.rdp.dm.model.Column;
 import com.hh.rdp.dm.model.Project;
 import com.hh.rdp.dm.model.Table;
+import com.hh.rdp.model.Column;
 import com.hh.rdp.util.image.ImageCache;
 import com.hh.rdp.util.image.ImageKeys;
 

@@ -7,9 +7,9 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
-import com.hh.rdp.dm.model.Column;
 import com.hh.rdp.dm.model.Project;
 import com.hh.rdp.dm.model.Table;
+import com.hh.rdp.model.Column;
 
 public class PageContentProvider implements IStructuredContentProvider,
 		ITreeContentProvider {

@@ -11,6 +11,8 @@ import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.hh.rdp.model.Column;
+
 @XmlRootElement
 public class Table    {
 	private String id = "";
