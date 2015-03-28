@@ -145,9 +145,14 @@ public class AppUtil {
 			IPackageFragmentRoot packageFragmentRoot = javaPoject
 					.findPackageFragmentRoot(new Path("/" + project.getName()
 							+ "/" + folder));
-
-			IPackageFragment packageFragment = packageFragmentRoot
-					.getPackageFragment(packageName);
+			IPackageFragment packageFragment = null;
+try {
+	 packageFragment = packageFragmentRoot
+			.getPackageFragment(packageName);
+} catch (Exception e) {
+e.printStackTrace();
+}
+			
 			if (!packageFragment.exists()) {
 				packageFragment = packageFragmentRoot.createPackageFragment(
 						packageName, true, null);

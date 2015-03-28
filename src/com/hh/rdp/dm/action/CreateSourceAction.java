@@ -1,10 +1,16 @@
 package com.hh.rdp.dm.action;
 
+import java.util.List;
+
 import org.eclipse.jface.action.Action;
 
+import com.hh.rdp.dm.ColumnEditPage;
 import com.hh.rdp.dm.CreateSourceDialog;
 import com.hh.rdp.dm.PageGrid;
+import com.hh.rdp.dm.TableEditPage;
 import com.hh.rdp.dm.model.Project;
+import com.hh.rdp.dm.model.Table;
+import com.hh.rdp.model.Column;
 import com.hh.rdp.util.Check;
 import com.hh.rdp.util.FrameMessage;
 import com.hh.rdp.util.image.ImageKeys;
@@ -19,12 +25,16 @@ public class CreateSourceAction extends Action {
 	}
 
 	public void run() {
-		Project project = (Project) page.getViewer().getTree().getItem(0).getData();
-		if (Check.isEmpty(project.getName())) {
-			FrameMessage.info("表名不能为空！");
-			return;
+		List<Object> selectObjectList = page.getSelectObjectList();
+		if (selectObjectList.size() > 0) {
+			if (selectObjectList.get(0) instanceof Table) {
+				new CreateSourceDialog(page, page.getEditor().getSite()
+						.getShell(),(Table) selectObjectList.get(0)).open();
+			} else {
+				FrameMessage.info("请选中table！");
+			}
+		} else {
+			FrameMessage.info("请选中一条数据！");
 		}
-		new CreateSourceDialog(page, page.getEditor().getSite().getShell())
-				.open();
 	}
 }
