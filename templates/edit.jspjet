@@ -67,10 +67,25 @@
 		<form id="form" xtype="form">
 			<span xtype="text" config=" hidden:true,name : 'id'"></span>
 			<table xtype="form">
-				<tr>
-					<td xtype="label">test：</td>
-					<td><span xtype="text" config=" name : 'test' "></span></td>
-				</tr>
+				<% List<Column> columnList = jetModel.getColumnList(); %>
+				<%	for (int i =0;i<columnList.size();i++) {
+						    String douhao = ","; 
+							if(columnList.size()-1==i){
+								douhao="";
+							}
+							Column column = columnList.get(i);
+							String name = column.getName();
+							String text = column.getText();
+							String length = column.getLength();
+							String nameUpper =name.substring(0, 1).toUpperCase()+name.substring(1);
+							String databaseColumnName = AppUtil.classNameTodataBaseName(name);
+							String type = column.getType();
+				%>
+					<tr>
+						<td xtype="label"><%=text%>：</td>
+						<td><span xtype="text" config=" name : '<%=name%>' "></span></td>
+					</tr>
+				<%}%>
 			</table>
 		</form>
 	</div>

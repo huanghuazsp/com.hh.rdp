@@ -29,7 +29,13 @@ public class ListJspTemplate
   protected final String TEXT_10 = "-";
   protected final String TEXT_11 = "Edit'," + NL + "\t\t\t\turlParams : {" + NL + "\t\t\t\t\tid : row.id" + NL + "\t\t\t\t}," + NL + "\t\t\t\tparams : {" + NL + "\t\t\t\t\tcallback : function() {" + NL + "\t\t\t\t\t\t$(\"#pagelist\").loadData();" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t});" + NL + "\t\t});" + NL + "\t}" + NL + "\tfunction doQuery() {" + NL + "\t\t$('#pagelist').loadData({" + NL + "\t\t\tparams : $('#queryForm').getValue()" + NL + "\t\t});" + NL + "\t}" + NL + "</script>" + NL + "</head>" + NL + "<body>" + NL + "\t<div xtype=\"toolbar\" config=\"type:'head'\">" + NL + "\t\t<span xtype=\"button\" config=\"onClick:doAdd,text:'添加' , itype :'add' \"></span>" + NL + "\t\t<span xtype=\"button\"" + NL + "\t\t\tconfig=\"onClick:doEdit,text:'修改' , itype :'edit' \"></span> <span" + NL + "\t\t\txtype=\"button\" config=\"onClick:doDelete,text:'删除' , itype :'delete' \"></span>" + NL + "\t\t<!--  <span" + NL + "\t\t\txtype=\"button\" config=\"onClick: doQuery ,text:'查询' , itype :'query' \"></span> <span" + NL + "\t\t\txtype=\"button\"" + NL + "\t\t\tconfig=\"onClick: $.hh.pagelist.doUp , params:{ pageid :'pagelist',action:'test-Test-order'}  ,  icon : 'hh_up' \"></span>" + NL + "\t\t<span xtype=\"button\"" + NL + "\t\t\tconfig=\"onClick: $.hh.pagelist.doDown , params:{ pageid :'pagelist',action:'test-Test-order'} , icon : 'hh_down' \"></span> -->" + NL + "\t</div>" + NL + "\t<!-- <table xtype=\"form\" id=\"queryForm\" style=\"width:600px;\">" + NL + "\t\t<tr>" + NL + "\t\t\t<td xtype=\"label\">test：</td>" + NL + "\t\t\t<td><span xtype=\"text\" config=\" name : 'test'\"></span></td>" + NL + "\t\t</tr>" + NL + "\t</table> -->" + NL + "\t<div id=\"pagelist\" xtype=\"pagelist\"" + NL + "\t\tconfig=\" url: '";
   protected final String TEXT_12 = "-";
-  protected final String TEXT_13 = "-queryPagingData' ,column : [" + NL + "\t\t{" + NL + "\t\t\tname : 'test' ," + NL + "\t\t\ttext : 'test'" + NL + "\t\t}" + NL + "\t]\">" + NL + "\t</div>" + NL + "</body>" + NL + "</html>";
+  protected final String TEXT_13 = "-queryPagingData' ,column : [" + NL + "\t\t" + NL + "\t\t";
+  protected final String TEXT_14 = NL + "\t\t";
+  protected final String TEXT_15 = NL + "\t\t\t{" + NL + "\t\t\t\tname : '";
+  protected final String TEXT_16 = "' ," + NL + "\t\t\t\ttext : '";
+  protected final String TEXT_17 = "'" + NL + "\t\t\t}";
+  protected final String TEXT_18 = NL + "\t\t";
+  protected final String TEXT_19 = NL + "\t]\">" + NL + "\t</div>" + NL + "</body>" + NL + "</html>";
 
   public String generate(Object argument)
   {
@@ -72,6 +78,30 @@ public class ListJspTemplate
     stringBuffer.append(TEXT_12);
     stringBuffer.append(className);
     stringBuffer.append(TEXT_13);
+     List<Column> columnList = jetModel.getColumnList(); 
+    stringBuffer.append(TEXT_14);
+    	for (int i =0;i<columnList.size();i++) {
+				    String douhao = ","; 
+					if(columnList.size()-1==i){
+						douhao="";
+					}
+					Column column = columnList.get(i);
+					String name = column.getName();
+					String text = column.getText();
+					String length = column.getLength();
+					String nameUpper =name.substring(0, 1).toUpperCase()+name.substring(1);
+					String databaseColumnName = AppUtil.classNameTodataBaseName(name);
+					String type = column.getType();
+		
+    stringBuffer.append(TEXT_15);
+    stringBuffer.append(name);
+    stringBuffer.append(TEXT_16);
+    stringBuffer.append(text);
+    stringBuffer.append(TEXT_17);
+    stringBuffer.append(douhao);
+    stringBuffer.append(TEXT_18);
+    }
+    stringBuffer.append(TEXT_19);
     return stringBuffer.toString();
   }
 }
