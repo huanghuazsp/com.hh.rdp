@@ -28,6 +28,8 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.wst.sse.ui.StructuredTextEditor;
 
+import com.hh.rdp.dm.action.CreateSourceAction;
+import com.hh.rdp.dm.action.RemoveAction;
 import com.hh.rdp.dm.editor.EditorPart;
 import com.hh.rdp.dm.model.Column;
 import com.hh.rdp.dm.model.Project;
@@ -196,6 +198,13 @@ public class PageGrid extends FormPage {
 	private void fillContextMenu(IMenuManager menuMgr) {
 		boolean isEmpty = viewer.getSelection().isEmpty();
 		removeAction.setEnabled(!isEmpty);
+		List<Object> objectList = getSelectObjectList();
+		
+		createSourceAction.setEnabled(false);
+		if (objectList.size()>0 && objectList.get(0) instanceof Table) {
+			createSourceAction.setEnabled(true);
+		}
+
 		menuMgr.add(createSourceAction);
 		menuMgr.add(removeAction);
 		menuMgr.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
