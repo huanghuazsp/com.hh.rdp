@@ -9,6 +9,7 @@ import com.hh.rdp.dm.PageGrid;
 import com.hh.rdp.dm.TableEditPage;
 import com.hh.rdp.dm.model.Column;
 import com.hh.rdp.dm.model.Table;
+import com.hh.rdp.util.FrameMessage;
 import com.hh.rdp.util.image.ImageKeys;
 
 public class EditAction extends Action {
@@ -28,7 +29,11 @@ public class EditAction extends Action {
 			} else if (selectObjectList.get(0) instanceof Column) {
 				new ColumnEditPage(page, page.getEditor().getSite().getShell(),
 						selectObjectList.get(0)).open();
+			}else{
+				FrameMessage.info("请选中table或者column进行修改！");
 			}
+		}else {
+			FrameMessage.info("请选中一条数据！");
 		}
 	}
 }

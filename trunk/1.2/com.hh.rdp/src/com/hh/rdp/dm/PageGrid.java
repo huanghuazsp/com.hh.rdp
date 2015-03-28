@@ -140,7 +140,7 @@ public class PageGrid extends FormPage {
 		add.setImage(ImageCache.getImage(ImageKeys.database_table_add));
 		add.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				editAction.run();
+				addAction.run();
 			}
 		});
 
