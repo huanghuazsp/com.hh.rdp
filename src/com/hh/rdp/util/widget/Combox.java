@@ -30,6 +30,11 @@ public class Combox extends Combo {
 			i++;
 		}
 	}
+	
+	public String getValue() {
+		return  (String) this.getData(this.getSelectionIndex() + "");
+	}
+	
 
 	@Override
 	public void setText(String string) {
