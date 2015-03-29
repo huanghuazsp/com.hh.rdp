@@ -21,20 +21,15 @@ public class WidgetUtil {
 
 	public static Label createLabel(Composite composite, String text) {
 		Label label = new Label(composite, SWT.NONE);
-		label.setBackground(whiteColor);
+//		label.setBackground(whiteColor);
 		label.setText(text);
 		label.setToolTipText(text);
 		return label;
 	}
 
-	public static Label createLabel2(Composite composite, String text) {
-		Label label = new Label(composite, SWT.NONE);
-		label.setText(text);
-		return label;
-	}
 
 	public static Text createText(Composite composite, String text) {
-		WidgetUtil.createLabel2(composite, text);
+		WidgetUtil.createLabel(composite, text);
 		Text textField = new Text(composite, SWT.BORDER);
 		textField.setLayoutData(gridData);
 		return textField;

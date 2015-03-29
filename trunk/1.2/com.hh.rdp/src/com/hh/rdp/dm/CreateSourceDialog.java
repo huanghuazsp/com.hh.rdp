@@ -1,12 +1,13 @@
 package com.hh.rdp.dm;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
@@ -30,7 +31,9 @@ import com.hh.rdp.model.JetModel;
 import com.hh.rdp.temp.ActionJavaTemplate;
 import com.hh.rdp.temp.BeanJavaTemplate;
 import com.hh.rdp.temp.EditJspTemplate;
+import com.hh.rdp.temp.EditTreeJspTemplate;
 import com.hh.rdp.temp.ListJspTemplate;
+import com.hh.rdp.temp.ListTreeJspTemplate;
 import com.hh.rdp.temp.ServiceJavaTemplate;
 import com.hh.rdp.util.AppUtil;
 import com.hh.rdp.util.Check;
@@ -39,6 +42,7 @@ import com.hh.rdp.util.StaticVar;
 import com.hh.rdp.util.WidgetUtil;
 import com.hh.rdp.util.image.ImageCache;
 import com.hh.rdp.util.image.ImageKeys;
+import com.hh.rdp.util.widget.Combox;
 
 public class CreateSourceDialog extends Dialog {
 	private PageGrid page;
@@ -49,6 +53,7 @@ public class CreateSourceDialog extends Dialog {
 	private Text listPagePackageText;
 	private Text editPagePackageText;
 	private Text classNameText;
+	private Combox templateCombox;
 
 	private Table table;
 
@@ -70,7 +75,7 @@ public class CreateSourceDialog extends Dialog {
 		composite.setLayout(gridLayout);
 		GridData baseGridData = new GridData(SWT.FILL, SWT.CENTER, true, false,
 				1, 1);
-		WidgetUtil.createLabel2(composite, "BasePackage：");
+		WidgetUtil.createLabel(composite, "BasePackage：");
 		basePackageText = new Text(composite, SWT.BORDER);
 		basePackageText.setLayoutData(baseGridData);
 
@@ -88,30 +93,37 @@ public class CreateSourceDialog extends Dialog {
 			}
 		});
 
-		WidgetUtil.createLabel2(composite, "beanPackage：");
+		WidgetUtil.createLabel(composite, "beanPackage：");
 		beanPackageText = new Text(composite, SWT.BORDER);
 		beanPackageText.setLayoutData(baseGridData);
 
-		WidgetUtil.createLabel2(composite, "servicePackage：");
+		WidgetUtil.createLabel(composite, "servicePackage：");
 		servicePackageText = new Text(composite, SWT.BORDER);
 		servicePackageText.setLayoutData(baseGridData);
 
-		WidgetUtil.createLabel2(composite, "ServiceRestPackage：");
+		WidgetUtil.createLabel(composite, "ServiceRestPackage：");
 		actionPackageText = new Text(composite, SWT.BORDER);
 		actionPackageText.setLayoutData(baseGridData);
 
-		WidgetUtil.createLabel2(composite, "ListPagePackage：");
+		WidgetUtil.createLabel(composite, "ListPagePackage：");
 		listPagePackageText = new Text(composite, SWT.BORDER);
 		listPagePackageText.setLayoutData(baseGridData);
 
-		WidgetUtil.createLabel2(composite, "EditPagePackage：");
+		WidgetUtil.createLabel(composite, "EditPagePackage：");
 		editPagePackageText = new Text(composite, SWT.BORDER);
 		editPagePackageText.setLayoutData(baseGridData);
 
-		WidgetUtil.createLabel2(composite, "BEAN类名：");
+		WidgetUtil.createLabel(composite, "BEAN类名：");
 		classNameText = new Text(composite, SWT.BORDER);
 		classNameText.setLayoutData(baseGridData);
 		classNameText.setText(table.getName().substring(0, 1).toUpperCase()+table.getName().substring(1));
+		
+		
+		Map<String, String> mbMap = new HashMap<String, String>();
+		mbMap.put("list", "列表");
+		mbMap.put("tree", "树");
+		templateCombox = WidgetUtil.createCombox(composite, "模板：", mbMap);
+		
 
 		FileEditorInput fileEditorInput = (FileEditorInput) page
 				.getEditorPartMain().getEditorInput();
@@ -175,21 +187,28 @@ public class CreateSourceDialog extends Dialog {
 			String servicePackage = servicePackageText.getText();
 			String actionPackage = actionPackageText.getText();
 			String basePackage = basePackageText.getText();
+			String template = templateCombox.getValue();
 
 			JetModel jetModel = new JetModel();
-			jetModel.setClassName(className);
+			jetModel.setServicePackName(servicePackageText.getText());
+			jetModel.setActionPackName(actionPackageText.getText());
+			jetModel.setBasePackName(basePackageText.getText());
+			jetModel.setModelName(jetModel.getBasePackName().substring(
+					jetModel.getBasePackName().lastIndexOf(".") + 1));
+			
+			jetModel.setClassName(jetModel.getModelName().substring(0, 1).toUpperCase()+
+					jetModel.getModelName().substring(1).toLowerCase()+className);
+			className=jetModel.getClassName();
 			jetModel.setColumnList(columnList);
 			jetModel.setPackName(beanPackageText.getText());
 			jetModel.setTableName(AppUtil.classNameTodataBaseName(jetModel
 					.getClassName()));
-			jetModel.setExtendClassName("BaseTwoEntity");
-
-			jetModel.setServicePackName(servicePackageText.getText());
-			jetModel.setActionPackName(actionPackageText.getText());
-			jetModel.setBasePackName(basePackageText.getText());
-
-			jetModel.setModelName(jetModel.getBasePackName().substring(
-					jetModel.getBasePackName().lastIndexOf(".") + 1));
+			if ("tree".equals(template)) {
+				jetModel.setExtendClassName("BaseTreeNodeEntity<"+jetModel.getClassName()+">");
+			}else {
+				jetModel.setExtendClassName("BaseTwoEntity");
+			}
+			
 
 
 			BeanJavaTemplate beanJavaTemplate = new BeanJavaTemplate();
@@ -207,17 +226,30 @@ public class CreateSourceDialog extends Dialog {
 			AppUtil.createCode(project, StaticVar.JAVA_SOURCE_FOLDER,
 					servicePackage, serviceCode, className + "Service.java");
 
-			ListJspTemplate listJsTemplate = new ListJspTemplate();
-			String listCode = listJsTemplate.generate(jetModel).replace("&lt;", "<").replace("&gt;", ">");
-			AppUtil.createCode(project, StaticVar.JSP_PAGE_SOURCE_FOLDER, "jsp."
-					+ basePackage + "." + className.toLowerCase(), listCode, className
-					+ "List.jsp");
-
-			EditJspTemplate editJsTemplate = new EditJspTemplate();
-			String editCode = editJsTemplate.generate(jetModel).replace("&lt;", "<").replace("&gt;", ">");
-			AppUtil.createCode(project, StaticVar.JSP_PAGE_SOURCE_FOLDER, "jsp."
-					+ basePackage + "." + className.toLowerCase(), editCode, className
-					+ "Edit.jsp");
+			
+			if ("tree".equals(template)) {
+				ListTreeJspTemplate listJsTemplate = new ListTreeJspTemplate();
+				String listCode = listJsTemplate.generate(jetModel).replace("&lt;", "<").replace("&gt;", ">");
+				AppUtil.createCode(project, StaticVar.JSP_PAGE_SOURCE_FOLDER, "jsp."
+						+ basePackage + "." + className.toLowerCase(), listCode, className
+						+ "List.jsp");
+				EditTreeJspTemplate editJsTemplate = new EditTreeJspTemplate();
+				String editCode = editJsTemplate.generate(jetModel).replace("&lt;", "<").replace("&gt;", ">");
+				AppUtil.createCode(project, StaticVar.JSP_PAGE_SOURCE_FOLDER, "jsp."
+						+ basePackage + "." + className.toLowerCase(), editCode, className
+						+ "Edit.jsp");
+			}else {
+				ListJspTemplate listJsTemplate = new ListJspTemplate();
+				String listCode = listJsTemplate.generate(jetModel).replace("&lt;", "<").replace("&gt;", ">");
+				AppUtil.createCode(project, StaticVar.JSP_PAGE_SOURCE_FOLDER, "jsp."
+						+ basePackage + "." + className.toLowerCase(), listCode, className
+						+ "List.jsp");
+				EditJspTemplate editJsTemplate = new EditJspTemplate();
+				String editCode = editJsTemplate.generate(jetModel).replace("&lt;", "<").replace("&gt;", ">");
+				AppUtil.createCode(project, StaticVar.JSP_PAGE_SOURCE_FOLDER, "jsp."
+						+ basePackage + "." + className.toLowerCase(), editCode, className
+						+ "Edit.jsp");
+			}
 
 			project.refreshLocal(IResource.DEPTH_INFINITE, null);
 		} catch (JavaModelException e) {
