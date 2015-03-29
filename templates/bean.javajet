@@ -4,6 +4,8 @@
  com.hh.rdp.util.*"   class="BeanJavaTemplate"  %>
 <%
  	JetModel jetModel =(JetModel) argument;
+ 	String modelName = jetModel.getModelName();
+ 	String upModelName = modelName.toUpperCase();
  %>
  package <%=jetModel.getPackName()%>;
 import java.util.Date;
@@ -19,7 +21,7 @@ import com.hh.hibernate.dao.inf.Order;
 @Order
 @SuppressWarnings("serial")
 @Entity
-@Table(name="<%=jetModel.getTableName()%>")
+@Table(name="<%=upModelName%>-<%=jetModel.getTableName()%>")
 public class <%=jetModel.getClassName()%>  extends <%=jetModel.getExtendClassName()%>{
 <% List<Column> columnList = jetModel.getColumnList(); %>
 <%	for (Column column : columnList) {
