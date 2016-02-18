@@ -38,8 +38,8 @@ public class EditJspTemplate
     final StringBuffer stringBuffer = new StringBuffer();
     
  	JetModel jetModel =(JetModel) argument;
- 	String className = jetModel.getClassName();
- 	String lowClassName = jetModel.getClassName().toLowerCase();
+ 	String className = jetModel.getClassName2();
+ 	String lowClassName = jetModel.getClassName2().toLowerCase();
  	String modelName = jetModel.getModelName();
  
     

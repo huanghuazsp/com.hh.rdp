@@ -15,7 +15,7 @@ import com.hh.system.service.impl.BaseService;
 import <%=jetModel.getServicePackName()%>.<%=jetModel.getClassName()%>Service;
 
 @SuppressWarnings("serial")
-public class Action<%=jetModel.getClassName()%> extends BaseServiceAction< <%=jetModel.getClassName()%> > {
+public class Action<%=jetModel.getClassName2()%> extends BaseServiceAction< <%=jetModel.getClassName()%> > {
 	@Autowired
 	private <%=jetModel.getClassName()%>Service <%=jetModel.getClassName().toLowerCase()%>Service;
 	public BaseService<<%=jetModel.getClassName()%>> getService() {

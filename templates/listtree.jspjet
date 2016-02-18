@@ -4,8 +4,8 @@
  com.hh.rdp.util.*"   class="ListTreeJspTemplate"  %>
 <%
  	JetModel jetModel =(JetModel) argument;
- 	String className = jetModel.getClassName();
- 	String lowClassName = jetModel.getClassName().toLowerCase();
+ 	String className = jetModel.getClassName2();
+ 	String lowClassName = jetModel.getClassName2().toLowerCase();
  	String modelName = jetModel.getModelName();
  %>
  <%
@@ -85,6 +85,9 @@
 			$.hh.tree.getTree('tree').refresh();
 		}
 		iframe.findData(treeNode.id);
+	}
+	function init(){
+		$('#centerdiv').disabled('请选择要编辑的树节点或添加新的数据！');
 	}
 </script>
 </head>
