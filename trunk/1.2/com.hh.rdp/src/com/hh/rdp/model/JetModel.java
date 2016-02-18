@@ -9,6 +9,8 @@ public class JetModel {
 	private String basePackName;
 	private String packName;
 	private String className;
+	private String className2;
+	
 	private String tableName;
 	
 	private String extendClassName;
@@ -109,5 +111,15 @@ public class JetModel {
 	public void setFormJsonText(String formJsonText) {
 		this.formJsonText = formJsonText;
 	}
+
+	public String getClassName2() {
+		return className2;
+	}
+
+	public void setClassName2(String className2) {
+		this.className2 = className2;
+	}
+	
+	
 	
 }

@@ -48,7 +48,7 @@ public class ActionJavaTemplate
     stringBuffer.append(TEXT_5);
     stringBuffer.append(jetModel.getClassName());
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(jetModel.getClassName());
+    stringBuffer.append(jetModel.getClassName2());
     stringBuffer.append(TEXT_7);
     stringBuffer.append(jetModel.getClassName());
     stringBuffer.append(TEXT_8);

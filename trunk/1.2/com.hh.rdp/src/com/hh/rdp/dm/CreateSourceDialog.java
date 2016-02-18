@@ -195,7 +195,7 @@ public class CreateSourceDialog extends Dialog {
 			jetModel.setBasePackName(basePackageText.getText());
 			jetModel.setModelName(jetModel.getBasePackName().substring(
 					jetModel.getBasePackName().lastIndexOf(".") + 1));
-			
+			jetModel.setClassName2(className);
 			jetModel.setClassName(jetModel.getModelName().substring(0, 1).toUpperCase()+
 					jetModel.getModelName().substring(1).toLowerCase()+className);
 			className=jetModel.getClassName();
@@ -219,7 +219,7 @@ public class CreateSourceDialog extends Dialog {
 			ActionJavaTemplate actionJavaTemplate = new ActionJavaTemplate();
 			String actionCode = actionJavaTemplate.generate(jetModel);
 			AppUtil.createCode(project, StaticVar.JAVA_SOURCE_FOLDER,
-					actionPackage, actionCode, "Action" + className + ".java");
+					actionPackage, actionCode, "Action" + jetModel.getClassName2() + ".java");
 
 			ServiceJavaTemplate serviceJavaTemplate = new ServiceJavaTemplate();
 			String serviceCode = serviceJavaTemplate.generate(jetModel);
@@ -231,23 +231,23 @@ public class CreateSourceDialog extends Dialog {
 				ListTreeJspTemplate listJsTemplate = new ListTreeJspTemplate();
 				String listCode = listJsTemplate.generate(jetModel).replace("&lt;", "<").replace("&gt;", ">");
 				AppUtil.createCode(project, StaticVar.JSP_PAGE_SOURCE_FOLDER, "jsp."
-						+ basePackage + "." + className.toLowerCase(), listCode, className
+						+ basePackage + "." + jetModel.getClassName2().toLowerCase(), listCode, jetModel.getClassName2()
 						+ "List.jsp");
 				EditTreeJspTemplate editJsTemplate = new EditTreeJspTemplate();
 				String editCode = editJsTemplate.generate(jetModel).replace("&lt;", "<").replace("&gt;", ">");
 				AppUtil.createCode(project, StaticVar.JSP_PAGE_SOURCE_FOLDER, "jsp."
-						+ basePackage + "." + className.toLowerCase(), editCode, className
+						+ basePackage + "." + jetModel.getClassName2().toLowerCase(), editCode, jetModel.getClassName2()
 						+ "Edit.jsp");
 			}else {
 				ListJspTemplate listJsTemplate = new ListJspTemplate();
 				String listCode = listJsTemplate.generate(jetModel).replace("&lt;", "<").replace("&gt;", ">");
 				AppUtil.createCode(project, StaticVar.JSP_PAGE_SOURCE_FOLDER, "jsp."
-						+ basePackage + "." + className.toLowerCase(), listCode, className
+						+ basePackage + "." + jetModel.getClassName2().toLowerCase(), listCode, jetModel.getClassName2()
 						+ "List.jsp");
 				EditJspTemplate editJsTemplate = new EditJspTemplate();
 				String editCode = editJsTemplate.generate(jetModel).replace("&lt;", "<").replace("&gt;", ">");
 				AppUtil.createCode(project, StaticVar.JSP_PAGE_SOURCE_FOLDER, "jsp."
-						+ basePackage + "." + className.toLowerCase(), editCode, className
+						+ basePackage + "." + jetModel.getClassName2().toLowerCase(), editCode, jetModel.getClassName2()
 						+ "Edit.jsp");
 			}
 
