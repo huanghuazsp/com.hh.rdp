@@ -1,10 +1,27 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Rdp
-Bundle-SymbolicName: com.hh.rdp; singleton:=true
+Bundle-SymbolicName: com.hh.rdp;singleton:=true
 Bundle-Version: 1.0
+Bundle-ClassPath: .,
+ lib/dom4j-1.6.1.jar,
+ lib/org.json.jar
 Bundle-Activator: com.hh.rdp.Activator
 Bundle-Vendor: HH
+Export-Package: com.hh.rdp,
+ com.hh.rdp.actions,
+ com.hh.rdp.browser,
+ com.hh.rdp.dm,
+ com.hh.rdp.dm.action,
+ com.hh.rdp.dm.editor,
+ com.hh.rdp.dm.model,
+ com.hh.rdp.model,
+ com.hh.rdp.temp,
+ com.hh.rdp.ui.win,
+ com.hh.rdp.util,
+ com.hh.rdp.util.image,
+ com.hh.rdp.util.widget,
+ com.hh.rdp.view
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.gef,
@@ -22,20 +39,3 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.views.properties.tabbed
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: .,
- lib/dom4j-1.6.1.jar,
- lib/org.json.jar
-Export-Package: com.hh.rdp,
- com.hh.rdp.actions,
- com.hh.rdp.browser,
- com.hh.rdp.dm,
- com.hh.rdp.dm.action,
- com.hh.rdp.dm.editor,
- com.hh.rdp.dm.model,
- com.hh.rdp.model,
- com.hh.rdp.temp,
- com.hh.rdp.ui.win,
- com.hh.rdp.util,
- com.hh.rdp.util.image,
- com.hh.rdp.util.widget,
- com.hh.rdp.view
