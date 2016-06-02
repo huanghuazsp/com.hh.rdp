@@ -20,7 +20,7 @@ public class EditTreeJspTemplate
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "<html>" + NL + "<head>" + NL + "<title>数据编辑</title>";
   protected final String TEXT_3 = NL;
-  protected final String TEXT_4 = NL + "<script type=\"text/javascript\">" + NL + "\tvar params = BaseUtil.getIframeParams();" + NL + "\tvar width = 600;" + NL + "\tvar height = 450;" + NL + "\tvar objectid = '";
+  protected final String TEXT_4 = NL + "<script type=\"text/javascript\">" + NL + "\tvar params = $.hh.getIframeParams();" + NL + "\tvar width = 600;" + NL + "\tvar height = 450;" + NL + "\tvar objectid = '";
   protected final String TEXT_5 = "';" + NL + "" + NL + "\tfunction callback() {" + NL + "\t}" + NL + "\tfunction save() {" + NL + "\t\t$.hh.validation.check('form', function(formData) {" + NL + "\t\t\tRequest.request('";
   protected final String TEXT_6 = "-";
   protected final String TEXT_7 = "-saveTree', {" + NL + "\t\t\t\tdata : formData," + NL + "\t\t\t\tcallback : function(result) {" + NL + "\t\t\t\t\tif (result.success!=false) {" + NL + "\t\t\t\t\t\tcallback(formData);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t});" + NL + "\t\t});" + NL + "\t}" + NL + "" + NL + "\tfunction findData(objid) {" + NL + "\t\tif (objid) {" + NL + "\t\t\tRequest.request('";
