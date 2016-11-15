@@ -209,15 +209,9 @@ public class GenerateCodeDialog extends Dialog {
 				column.setType("int");
 			} else if ("htmleditor".equals(xtype)) {
 				column.setType("String");
-				column.setLob(true);
 			} else {
 				column.setType("String");
 			}
-
-			if (Convert.toLong(column.getLength()) > 4000) {
-				column.setLob(true);
-			}
-
 			columnList.add(column);
 		}
 		return columnList;

@@ -15,7 +15,7 @@ public class Column  {
 	private String text = "";
 	private String name = "";
 	private String type = "String";
-	private String length = "";
+	private String length = "256";
 	private String empty = "true";
 	private String primary = "false";
 	private String defaultValue = "";
@@ -23,7 +23,6 @@ public class Column  {
 	private Table parent;
 	private Map<String, String> map = new HashMap<String, String>();
 	
-	private boolean isLob;
 	
 	@XmlAttribute
 	public String getId() {
@@ -116,12 +115,9 @@ public class Column  {
 	}
 	@XmlTransient
 	public boolean isLob() {
-		return isLob;
+		return "大字段".equals(length) || "byte[]".equals(type);
 	}
 
-	public void setLob(boolean isLob) {
-		this.isLob = isLob;
-	}
 	
 	
 }

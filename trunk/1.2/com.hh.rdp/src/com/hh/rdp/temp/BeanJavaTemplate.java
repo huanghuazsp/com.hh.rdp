@@ -78,9 +78,11 @@ public class BeanJavaTemplate
 		if("Date".equals(type)){
 			columnStr="@Temporal(TemporalType.TIMESTAMP)\n\t"
 			+"@Column(name=\""+databaseColumnName+"\",length = 7";
+		}else if("int".equals(type)){
+			columnStr+="@Column(name=\""+databaseColumnName+"\",";
 		}else{
 			columnStr+="@Column(name=\""+databaseColumnName+"\",";
-			if(Check.isNoEmpty(length)){
+			if(Check.isNoEmpty(length) && !column.isLob()){
 				columnStr+=" length = "+length;
 			}
 		}
