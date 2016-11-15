@@ -7,6 +7,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -17,13 +18,18 @@ import com.hh.rdp.dm.model.Table;
 import com.hh.rdp.model.Column;
 import com.hh.rdp.util.Check;
 import com.hh.rdp.util.FrameMessage;
+import com.hh.rdp.util.WidgetUtil;
 
 public class ColumnEditPage extends Dialog {
 	private PageGrid page;
 	private Text nameText;
+	private Text textText;
 	private Table table;
 	private Column column;
 	private boolean edit;
+	
+	private Combo typeText;
+	private Combo lengthText;
 
 	public ColumnEditPage(PageGrid page, Shell parentShell, Object object) {
 		super(parentShell);
@@ -44,7 +50,7 @@ public class ColumnEditPage extends Dialog {
 				1, 1));
 		getShell().setText("字段编辑");
 		GridLayout gridLayout = new GridLayout();
-		gridLayout.numColumns = 3;
+		gridLayout.numColumns = 2;
 		composite.setLayout(gridLayout);
 		Label label = new Label(composite, SWT.NONE);
 		label.setText("字段名称：");
@@ -52,15 +58,25 @@ public class ColumnEditPage extends Dialog {
 		nameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 				1, 1));
 		
+		textText = WidgetUtil.createText(composite, "注释：");
+		
+		typeText  = WidgetUtil.createCombo(composite, "类型：", new String[]{"String","int","Date","Long","byte[]"});
+		
+		lengthText  = WidgetUtil.createCombo(composite, "长度：", new String[]{"16","36","64","128","256","512","1024","2048","大字段"});
+		
+		
 		if (edit) {
-			nameText.setText(column.getText());
+			typeText.setText(column.getType());
+			lengthText.setText(column.getLength());
+			nameText.setText(column.getName());
+			textText.setText(column.getText());
 		}
 		return composite;
 	}
 
 	@Override
 	protected Point getInitialSize() {
-		return new Point(400, 120);
+		return new Point(400, 210);
 	}
 
 	@Override
@@ -77,6 +93,9 @@ public class ColumnEditPage extends Dialog {
 		}
 		page.getViewer().refresh();
 		nameText.setText("");
+		textText.setText("");
+		typeText.setText("String");
+		lengthText.setText("256");
 		page.getEditorPartMain().setPageModified(true);
 		// TreeItem treeItem = page.getViewer().getTree().getItem(0);
 		// page.getViewer().getTree()
@@ -86,8 +105,10 @@ public class ColumnEditPage extends Dialog {
 
 	private void huitian(Column column) {
 		column.setId(UUID.randomUUID().toString());
-		column.setText(nameText.getText());
+		column.setText(textText.getText());
 		column.setName(nameText.getText());
+		column.setLength(lengthText.getText());
+		column.setType(typeText.getText());
 	}
 
 	public boolean checkName(String name) {
