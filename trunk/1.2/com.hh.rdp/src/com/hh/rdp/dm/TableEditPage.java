@@ -18,11 +18,12 @@ import com.hh.rdp.dm.model.Table;
 import com.hh.rdp.model.Column;
 import com.hh.rdp.util.Check;
 import com.hh.rdp.util.FrameMessage;
+import com.hh.rdp.util.WidgetUtil;
 
 public class TableEditPage extends Dialog {
 	private PageGrid page;
 	private Text nameText;
-
+	private Text textText;
 	private Table table;
 	private Project project;
 	private boolean edit;
@@ -46,23 +47,22 @@ public class TableEditPage extends Dialog {
 				1, 1));
 		getShell().setText("表编辑");
 		GridLayout gridLayout = new GridLayout();
-		gridLayout.numColumns = 3;
+		gridLayout.numColumns = 2;
 		composite.setLayout(gridLayout);
-		Label label = new Label(composite, SWT.NONE);
-		label.setText("名称：");
-		nameText = new Text(composite, SWT.BORDER);
-		nameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
-				1, 1));
+		textText = WidgetUtil.createText(composite, "注释：");
+		
+		nameText = WidgetUtil.createText(composite, "名称：");
 
 		if (edit) {
-			nameText.setText(table.getText());
+			nameText.setText(table.getName());
+			textText.setText(table.getText());
 		}
 		return composite;
 	}
 
 	@Override
 	protected Point getInitialSize() {
-		return new Point(400, 120);
+		return new Point(400, 160);
 	}
 
 	@Override
@@ -79,13 +79,14 @@ public class TableEditPage extends Dialog {
 		}
 		page.getViewer().refresh();
 		nameText.setText("");
+		textText.setText("");
 		page.getEditorPartMain().setPageModified(true);
 		this.close();
 	}
 
 	private void huitian(Table table) {
 		table.setId(UUID.randomUUID().toString());
-		table.setText(nameText.getText());
+		table.setText(textText.getText());
 		table.setName(nameText.getText());
 	}
 

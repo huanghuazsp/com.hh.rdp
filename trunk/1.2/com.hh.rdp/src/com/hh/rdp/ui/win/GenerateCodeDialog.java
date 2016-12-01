@@ -135,6 +135,7 @@ public class GenerateCodeDialog extends Dialog {
 					+ beanNameText.getText().substring(1);
 
 			JetModel jetModel = new JetModel();
+			jetModel.setTableText("");
 			jetModel.setClassName(className);
 			jetModel.setMapList(mapList);
 			jetModel.setColumnList(columnList);

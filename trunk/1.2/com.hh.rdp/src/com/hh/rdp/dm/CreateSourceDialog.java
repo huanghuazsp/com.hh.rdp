@@ -190,6 +190,7 @@ public class CreateSourceDialog extends Dialog {
 			String template = templateCombox.getValue();
 
 			JetModel jetModel = new JetModel();
+			jetModel.setTableText(table.getText());
 			jetModel.setServicePackName(servicePackageText.getText());
 			jetModel.setActionPackName(actionPackageText.getText());
 			jetModel.setBasePackName(basePackageText.getText());

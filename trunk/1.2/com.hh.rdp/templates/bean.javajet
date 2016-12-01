@@ -17,6 +17,9 @@ import javax.persistence.Transient;
 import javax.persistence.Lob;
 import com.hh.hibernate.util.base.*;
 import com.hh.hibernate.dao.inf.Order;
+import com.hh.hibernate.dao.inf.Comment;
+<%if(Check.isNoEmpty(jetModel.getTableText())){%>
+@Comment("<%=jetModel.getTableText()%>")<%}%>
 @Order
 @SuppressWarnings("serial")
 @Entity
@@ -31,7 +34,6 @@ public class <%=jetModel.getClassName()%>  extends <%=jetModel.getExtendClassNam
 			String databaseColumnName = AppUtil.classNameTodataBaseName(name);
 			String type = column.getType();
 %>
-	//<%=column.getText()%>
 	private <%="boolean".equals(type)?"int" : type%> <%=name%>;
 	<%
 		String columnStr = "";
@@ -54,6 +56,9 @@ public class <%=jetModel.getClassName()%>  extends <%=jetModel.getExtendClassNam
 		}
 		columnStr+=")";
 	%>
+	
+	<%if(Check.isNoEmpty(column.getText())){%>
+	@Comment("<%=column.getText()%>")<%}%>
 	<%=columnStr%>
 	public <%= type%> get<%=nameUpper%>() {
 		return <%=name%>;
