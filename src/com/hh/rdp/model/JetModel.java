@@ -12,6 +12,7 @@ public class JetModel {
 	private String className2;
 	
 	private String tableName;
+	private String tableText;
 	
 	private String extendClassName;
 	
@@ -118,6 +119,14 @@ public class JetModel {
 
 	public void setClassName2(String className2) {
 		this.className2 = className2;
+	}
+
+	public String getTableText() {
+		return tableText;
+	}
+
+	public void setTableText(String tableText) {
+		this.tableText = tableText;
 	}
 	
 	

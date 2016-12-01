@@ -52,13 +52,15 @@ public class ColumnEditPage extends Dialog {
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.numColumns = 2;
 		composite.setLayout(gridLayout);
+		
+		textText = WidgetUtil.createText(composite, "注释：");
+		
 		Label label = new Label(composite, SWT.NONE);
 		label.setText("字段名称：");
 		nameText = new Text(composite, SWT.BORDER);
 		nameText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 				1, 1));
 		
-		textText = WidgetUtil.createText(composite, "注释：");
 		
 		typeText  = WidgetUtil.createCombo(composite, "类型：", new String[]{"String","int","Date","Long","byte[]"});
 		
