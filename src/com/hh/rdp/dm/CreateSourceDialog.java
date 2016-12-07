@@ -205,9 +205,9 @@ public class CreateSourceDialog extends Dialog {
 			jetModel.setTableName(AppUtil.classNameTodataBaseName(jetModel
 					.getClassName()));
 			if ("tree".equals(template)) {
-				jetModel.setExtendClassName("BaseTreeNodeEntity<"+jetModel.getClassName()+">");
+				jetModel.setExtendClassName("BaseEntityTree<"+jetModel.getClassName()+">");
 			}else {
-				jetModel.setExtendClassName("BaseTwoEntity");
+				jetModel.setExtendClassName("BaseEntity");
 			}
 			
 
