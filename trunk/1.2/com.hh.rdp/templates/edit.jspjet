@@ -14,7 +14,7 @@
   	topStr+="&lt;%@page import=\"com.hh.system.util.Convert\"%&gt;\n";
   	topStr+="&lt;%=BaseSystemUtil.getBaseDoctype()%&gt;\n";
   	
-  	String jsStr = "&lt;%=BaseSystemUtil.getBaseJs(\"checkform\",\"date\")%&gt;\n";
+  	String jsStr = "&lt;%=BaseSystemUtil.getBaseJs(\"checkform\")%&gt;\n";
   	
   	String objectIdStr = "&lt;%=Convert.toString(request.getParameter(\"id\"))%&gt;";
  %>

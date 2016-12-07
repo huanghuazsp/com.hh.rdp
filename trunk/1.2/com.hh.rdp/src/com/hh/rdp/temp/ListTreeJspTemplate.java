@@ -54,11 +54,11 @@ public class ListTreeJspTemplate
     
  	String topStr="&lt;%@page language=\"java\" import=\"java.util.*\" pageEncoding=\"UTF-8\"%&gt;\n";
  	topStr+="&lt;%@page import=\"com.hh.system.util.BaseSystemUtil\"%&gt;\n";
- 	topStr+="&lt;%@page import=\"com.hh.system.util.PrimaryKey\"%&gt;\n";
+ 	topStr+="&lt;%@page import=\"com.hh.system.util.pk.PrimaryKey\"%&gt;\n";
   	topStr+="&lt;%=BaseSystemUtil.getBaseDoctype()%&gt;\n";
   	
   	String jsStr = "&lt;%=BaseSystemUtil.getBaseJs(\"layout\",\"ztree\", \"ztree_edit\")%&gt;\n";
-  	jsStr+="&lt;%String iframeId = PrimaryKey.getPrimaryKeyUUID();%&gt;\n";
+  	jsStr+="&lt;%String iframeId = PrimaryKey.getUUID();%&gt;\n";
   	
   	String iframeStr = "&lt;%=iframeId%&gt;";
  
