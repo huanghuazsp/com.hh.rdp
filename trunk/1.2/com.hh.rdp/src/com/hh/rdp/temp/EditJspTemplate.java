@@ -44,11 +44,11 @@ public class EditJspTemplate
  
     
  	String topStr="&lt;%@page language=\"java\" import=\"java.util.*\" pageEncoding=\"UTF-8\"%&gt;\n";
- 	topStr+="&lt;%@page import=\"com.hh.system.util.BaseSystemUtil\"%&gt;\n";
+ 	topStr+="&lt;%@page import=\"com.hh.system.util.SystemUtil\"%&gt;\n";
   	topStr+="&lt;%@page import=\"com.hh.system.util.Convert\"%&gt;\n";
-  	topStr+="&lt;%=BaseSystemUtil.getBaseDoctype()%&gt;\n";
+  	topStr+="&lt;%=SystemUtil.getBaseDoctype()%&gt;\n";
   	
-  	String jsStr = "&lt;%=BaseSystemUtil.getBaseJs(\"checkform\")%&gt;\n";
+  	String jsStr = "&lt;%=SystemUtil.getBaseJs(\"checkform\")%&gt;\n";
   	
   	String objectIdStr = "&lt;%=Convert.toString(request.getParameter(\"id\"))%&gt;";
  
