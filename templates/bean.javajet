@@ -35,8 +35,7 @@ public class <%=jetModel.getClassName()%>  extends <%=jetModel.getExtendClassNam
 			String type = column.getType();
 %>
 	private <%="boolean".equals(type)?"int" : type%> <%=name%>;
-	<%
-		String columnStr = "";
+	<%  String columnStr = "";
 		if(column.isLob()){
 			columnStr="@Lob\n\t";
 		}
@@ -55,9 +54,7 @@ public class <%=jetModel.getClassName()%>  extends <%=jetModel.getExtendClassNam
 			columnStr=columnStr.substring(0,columnStr.length()-1);
 		}
 		columnStr+=")";
-	%>
-	
-	<%if(Check.isNoEmpty(column.getText())){%>
+	%><%if(Check.isNoEmpty(column.getText())){%>
 	@Comment("<%=column.getText()%>")<%}%>
 	<%=columnStr%>
 	public <%= type%> get<%=nameUpper%>() {
