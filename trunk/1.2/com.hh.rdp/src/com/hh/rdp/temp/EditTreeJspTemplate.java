@@ -29,7 +29,7 @@ public class EditTreeJspTemplate
   protected final String TEXT_10 = "-";
   protected final String TEXT_11 = "-findObjectById' , url : '";
   protected final String TEXT_12 = "-";
-  protected final String TEXT_13 = "-queryTreeList' \"></span>" + NL + "\t\t\t\t\t</td>" + NL + "\t\t\t\t</tr>" + NL + "\t\t\t\t<tr>" + NL + "\t\t\t\t\t<td xtype=\"label\">是否展开：</td>" + NL + "\t\t\t\t\t<td><span xtype=\"radio\"" + NL + "\t\t\t\t\t\tconfig=\"name: 'expanded' ,defaultValue : 0,  data :[{id:1,text:'是'},{id:0,text:'否'}]\"></span></td>" + NL + "\t\t\t\t</tr>" + NL + "\t\t\t\t";
+  protected final String TEXT_13 = "-queryTreeList' \"></span>" + NL + "\t\t\t\t\t</td>" + NL + "\t\t\t\t</tr>" + NL + "\t\t\t\t<tr>" + NL + "\t\t\t\t\t<td xtype=\"label\">是否展开：</td>" + NL + "\t\t\t\t\t<td><span xtype=\"radio\"" + NL + "\t\t\t\t\t\tconfig=\"name: 'expanded' ,value : 0,  data :[{id:1,text:'是'},{id:0,text:'否'}]\"></span></td>" + NL + "\t\t\t\t</tr>" + NL + "\t\t\t\t";
   protected final String TEXT_14 = NL + "\t\t\t\t";
   protected final String TEXT_15 = NL + "\t\t\t\t\t<tr>" + NL + "\t\t\t\t\t\t<td xtype=\"label\">";
   protected final String TEXT_16 = "：</td>" + NL + "\t\t\t\t\t\t<td><span xtype=\"text\" config=\" name : '";

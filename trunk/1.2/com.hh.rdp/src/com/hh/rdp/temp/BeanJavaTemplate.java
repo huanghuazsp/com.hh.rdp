@@ -28,20 +28,19 @@ public class BeanJavaTemplate
   protected final String TEXT_9 = NL + "\tprivate ";
   protected final String TEXT_10 = " ";
   protected final String TEXT_11 = ";" + NL + "\t";
-  protected final String TEXT_12 = NL + "\t" + NL + "\t";
-  protected final String TEXT_13 = NL + "\t@Comment(\"";
-  protected final String TEXT_14 = "\")";
-  protected final String TEXT_15 = NL + "\t";
-  protected final String TEXT_16 = NL + "\tpublic ";
-  protected final String TEXT_17 = " get";
-  protected final String TEXT_18 = "() {" + NL + "\t\treturn ";
-  protected final String TEXT_19 = ";" + NL + "\t}" + NL + "\tpublic void set";
-  protected final String TEXT_20 = "(";
-  protected final String TEXT_21 = " ";
-  protected final String TEXT_22 = ") {" + NL + "\t\tthis.";
-  protected final String TEXT_23 = " = ";
-  protected final String TEXT_24 = ";" + NL + "\t}" + NL + "\t";
-  protected final String TEXT_25 = NL + "}";
+  protected final String TEXT_12 = NL + "\t@Comment(\"";
+  protected final String TEXT_13 = "\")";
+  protected final String TEXT_14 = NL + "\t";
+  protected final String TEXT_15 = NL + "\tpublic ";
+  protected final String TEXT_16 = " get";
+  protected final String TEXT_17 = "() {" + NL + "\t\treturn ";
+  protected final String TEXT_18 = ";" + NL + "\t}" + NL + "\tpublic void set";
+  protected final String TEXT_19 = "(";
+  protected final String TEXT_20 = " ";
+  protected final String TEXT_21 = ") {" + NL + "\t\tthis.";
+  protected final String TEXT_22 = " = ";
+  protected final String TEXT_23 = ";" + NL + "\t}" + NL + "\t";
+  protected final String TEXT_24 = NL + "}";
 
   public String generate(Object argument)
   {
@@ -79,8 +78,7 @@ public class BeanJavaTemplate
     stringBuffer.append(TEXT_10);
     stringBuffer.append(name);
     stringBuffer.append(TEXT_11);
-    
-		String columnStr = "";
+      String columnStr = "";
 		if(column.isLob()){
 			columnStr="@Lob\n\t";
 		}
@@ -100,33 +98,32 @@ public class BeanJavaTemplate
 		}
 		columnStr+=")";
 	
-    stringBuffer.append(TEXT_12);
     if(Check.isNoEmpty(column.getText())){
-    stringBuffer.append(TEXT_13);
+    stringBuffer.append(TEXT_12);
     stringBuffer.append(column.getText());
-    stringBuffer.append(TEXT_14);
+    stringBuffer.append(TEXT_13);
     }
-    stringBuffer.append(TEXT_15);
+    stringBuffer.append(TEXT_14);
     stringBuffer.append(columnStr);
-    stringBuffer.append(TEXT_16);
+    stringBuffer.append(TEXT_15);
     stringBuffer.append( type);
+    stringBuffer.append(TEXT_16);
+    stringBuffer.append(nameUpper);
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(nameUpper);
-    stringBuffer.append(TEXT_18);
     stringBuffer.append(name);
-    stringBuffer.append(TEXT_19);
+    stringBuffer.append(TEXT_18);
     stringBuffer.append(nameUpper);
-    stringBuffer.append(TEXT_20);
+    stringBuffer.append(TEXT_19);
     stringBuffer.append(type);
+    stringBuffer.append(TEXT_20);
+    stringBuffer.append(name);
     stringBuffer.append(TEXT_21);
     stringBuffer.append(name);
     stringBuffer.append(TEXT_22);
     stringBuffer.append(name);
     stringBuffer.append(TEXT_23);
-    stringBuffer.append(name);
-    stringBuffer.append(TEXT_24);
     }
-    stringBuffer.append(TEXT_25);
+    stringBuffer.append(TEXT_24);
     return stringBuffer.toString();
   }
 }
