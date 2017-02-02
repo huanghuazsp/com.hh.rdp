@@ -5,10 +5,9 @@
 <%
  	JetModel jetModel =(JetModel) argument;
  %>
- package <%=jetModel.getServicePackName()%>;
+package <%=jetModel.getServicePackName()%>;
 import com.hh.system.service.impl.BaseService;
 import org.springframework.stereotype.Service;
-
 import <%=jetModel.getPackName()%>.<%=jetModel.getClassName()%>;
 
 @Service

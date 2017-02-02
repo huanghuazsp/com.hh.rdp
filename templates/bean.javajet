@@ -6,7 +6,7 @@
  	JetModel jetModel =(JetModel) argument;
  	String modelName = jetModel.getModelName();
  %>
- package <%=jetModel.getPackName()%>;
+package <%=jetModel.getPackName()%>;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Table;
