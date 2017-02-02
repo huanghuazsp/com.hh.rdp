@@ -17,7 +17,7 @@ public class BeanJavaTemplate
   }
 
   public final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
-  protected final String TEXT_1 = " package ";
+  protected final String TEXT_1 = "package ";
   protected final String TEXT_2 = ";" + NL + "import java.util.Date;" + NL + "import javax.persistence.Entity;" + NL + "import javax.persistence.Table;" + NL + "import javax.persistence.Column;" + NL + "import javax.persistence.Temporal;" + NL + "import javax.persistence.TemporalType;" + NL + "import javax.persistence.Transient;" + NL + "import javax.persistence.Lob;" + NL + "import com.hh.hibernate.util.base.*;" + NL + "import com.hh.hibernate.dao.inf.Order;" + NL + "import com.hh.hibernate.dao.inf.Comment;";
   protected final String TEXT_3 = NL + "@Comment(\"";
   protected final String TEXT_4 = "\")";
